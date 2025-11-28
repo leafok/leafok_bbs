@@ -43,7 +43,7 @@ TD
 			FROM section_master INNER JOIN section_config ON section_master.SID = section_config.SID
 			INNER JOIN user_list ON section_master.UID = user_list.UID
 			INNER JOIN user_pubinfo ON section_master.UID = user_pubinfo.UID
-			WHERE section_master.enable AND section_config.enable
+			WHERE section_master.enable AND section_config.enable AND (NOW() BETWEEN begin_dt AND end_dt)
 			ORDER BY user_list.UID, begin_dt, MID";
 
 	$rs = mysqli_query($db_conn, $sql);
