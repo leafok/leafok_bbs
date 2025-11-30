@@ -54,7 +54,7 @@ TD.content_deleted
 						<td align="right" width="5"></td>
 						<td colspan="2">
 							<xsl:element name="a">
-								<xsl:attribute name="href">https://www.fenglin.info</xsl:attribute>
+								<xsl:attribute name="href">https://fenglin.info</xsl:attribute>
 								<xsl:attribute name="target">_blank</xsl:attribute>
 										<xsl:element name="img">
 									<xsl:attribute name="src">/images/logo/leafok.gif</xsl:attribute>
