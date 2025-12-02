@@ -6,7 +6,7 @@
 	$BBS_default_sid			=	4;
 	$BBS_name					=	"枫林在线";
 	$BBS_host_name				=	"FengLin.info";
-	$BBS_license_dt				=	"2025-03-02 10:00:00";
+	$BBS_license_dt				=	"2025-12-02 14:00:00";
 	$BBS_copyright_duration		=	"2001-2025";
 
 	$BBS_max_user_per_email		=	3;
