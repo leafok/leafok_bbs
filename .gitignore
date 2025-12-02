@@ -1,5 +1,6 @@
 /bbs/cache
-/bbs/doc
+/bbs/doc/history
+/bbs/doc/license
 /bbs/upload
 /bbs/images/face/upload_photo
 /conf

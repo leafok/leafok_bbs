@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type='text/xsl' href='bbs_xml_doc.xsl'?>
+<Topic>
+	<Title>
+		版面管理条例
+	</Title>
+	<Date>
+		2025年3月3日
+	</Date>
+	<Content>
+		<Section>
+			<Name>一、总则</Name>
+			<Item><Text>1、为加强枫林在线论坛（ 以下简称“本站” ）版面秩序的管理，制定本管理条例（ 以下简称“条例” ）。</Text></Item>
+			<Item><Text>2、本站版面分为公共版、系统版、俱乐部版三类。任何版面必须确定类别。公共版面是有明确主题，并限制大规模灌水的版面。面向公众，以增强开放性服务的能力为目标。俱乐部版为允许一定程度灌水的主题版面（主题一般不超过3个），限定讨论团体，着重发展团体内部的交流。各类版面将适用不同的管理规定。系统版面与一些只读与限读版面，以及特殊版面除外。</Text></Item>
+		</Section>
+		<Section>
+			<Name>二、开版原则</Name>
+			<Item><Text>1、新开版面以活跃本站交流，促进本站发展为原则。</Text></Item>
+			<Item><Text>2、版块必须具有明确的主题，且不得与论坛现有版块重复。</Text></Item>
+			<Item><Text>3、俱乐部版面的开版基本原则是有相对明确的讨论主题，且达到一定联署人数要求后，才予以开版。</Text></Item>
+			<Item><Text>4、申请者作为其所申请版块的版主，同时履行版主的义务，享有版主的权利，详见《版主管理条例》。</Text></Item>
+		</Section>
+		<Section>
+			<Name>三、开版程序</Name>
+			<Item><Text>1、申请条件：凡是本站的注册用户，承认并保证遵守本条例，均可提出申请。</Text></Item>
+			<Item><Text>2、申请步骤：</Text></Item>
+			<Item>
+				<SubItem><Text>&#32;&#32;1）非本站注册用户者必须先申请完成用户注册。</Text></SubItem>
+				<SubItem><Text>&#32;&#32;2）用户自行确定所申请版块的中英文版名、版块性质、所属类别、讨论主题等内容，将申请发表在“意见箱”版块。</Text></SubItem>
+				<SubItem><Text>&#32;&#32;3）开版申请张贴期间，由其他论坛用户进行连署支持。支持者必须注明同意开版的理由，不能简单地回复。</Text></SubItem>
+				<SubItem><Text>&#32;&#32;4）7天内连署超过10人（不是用户ID）后，由任何一位合法用户提交达到联署要求的提案。</Text></SubItem>
+				<SubItem><Text>&#32;&#32;5）站务委员会通过内部投票等形式决定是否开版，并将在提案提交7天内告知申请是否被接受及相应理由。</Text></SubItem>
+			</Item>
+			<Item><Text>3、单位或团体申请开设版块时，可由其指定一名本站注册用户作为代表提出申请，申请过程同上。</Text></Item>
+		</Section>
+		<Section>
+			<Name>四、关闭版面</Name>
+			<Item><Text>1、版块严重偏离开版宗旨、管理混乱、人气不佳、有严重违反本条例的情况，经整改无效者。</Text></Item>
+			<Item><Text>2、版主认为版面已无任何意义，申请关版的。</Text></Item>
+			<Item><Text>3、任何类型的俱乐部版面，连续一个月没有文章的（包括假期）。或俱乐部一周无版主的。</Text></Item>
+		</Section>
+		<Section>
+			<Name>五、关版程序</Name>
+			<Item><Text>1、版块进入关版程序后设为“只读”状态。</Text></Item>
+			<Item><Text>2、版主可在2周内对版面做必要整理。</Text></Item>
+			<Item><Text>3、正式关闭版块，有特殊原因者可保留精华区。</Text></Item>
+		</Section>
+		<Section>
+			<Name>六、附则</Name>
+			<Item><Text>1、本条例由本站站务委员会制定并修订，由本站仲裁委员会解释。</Text></Item>
+			<Item><Text>2、本条例中之未尽事宜按照本站的《用户许可协议》的相应条款以及中华人民共和国的相应法律执行。本条例中与国家法律相抵触之部分，按照中华人民共和国的相应法律执行，其余部分仍然有效。</Text></Item>
+			<Item><Text>3、本条例自颁布之日起实行，原相关规定自动失效。</Text></Item>
+		</Section>
+	</Content>
+</Topic>
