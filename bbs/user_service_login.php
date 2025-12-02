@@ -345,7 +345,7 @@
 		case -2:
 			if (!$agreement)
 			{
-				$buffer = file_get_contents("./doc/license/" . (new DateTime($BBS_license_dt))->format("Ymd") . ".txt");
+				$buffer = file_get_contents("./doc/eula.txt");
 
 				$result_set["return"]["code"] = 4;
 				$result_set["return"]["message"] = LML($buffer, 1024, false);

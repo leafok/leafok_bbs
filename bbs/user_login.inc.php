@@ -4,11 +4,11 @@ require_once "../bbs/user_priv.inc.php";
 
 function load_user_info($uid, $db_conn)
 {
-	global $BBS_license_dt;
 	global $BBS_life_immortal;
 	global $BBS_timezone;
 
-	$sql = "SELECT life, upload_limit, last_login_dt, user_timezone FROM user_pubinfo WHERE UID = $uid";
+	$sql = "SELECT life, upload_limit, UNIX_TIMESTAMP(last_login_dt) AS last_login_dt, user_timezone
+			FROM user_pubinfo WHERE UID = $uid";
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)
 	{
@@ -23,7 +23,7 @@ function load_user_info($uid, $db_conn)
 		$_SESSION["BBS_user_tz"] = new DateTimeZone($row["user_timezone"] != "" ? $row["user_timezone"] : $BBS_timezone);
 
 		if (!in_array($life, $BBS_life_immortal) &&
-			(new DateTimeImmutable("-" . $life . " day")) > (new DateTimeImmutable($last_login_dt)))
+			time() - $last_login_dt > 60 * 60 * 24 * $life)
 		{
 			return (-3); //Dead
 		}
@@ -37,7 +37,17 @@ function load_user_info($uid, $db_conn)
 
 	$_SESSION["BBS_priv"]->loadpriv($uid, $db_conn);
 
-	if ((new DateTimeImmutable($last_login_dt)) < (new DateTimeImmutable($BBS_license_dt)))
+	$stat = stat("./doc/eula.txt");
+	if ($stat !== false)
+	{
+		$BBS_eula_tm = $stat["mtime"];
+	}
+	else
+	{
+		$BBS_eula_tm = 0;
+	}
+
+	if ($last_login_dt < $BBS_eula_tm)
 	{
 		return (-2); //require update agreement first
 	}
