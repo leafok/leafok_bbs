@@ -81,6 +81,23 @@
 		999,
 	);
 
+	$BBS_user_actions			= array(
+		"ARTICLE_FAVOR" => "浏览收藏",
+		"BBS_NET" => "站点穿梭",
+		"CHICKEN" => "电子小鸡",
+		"EDIT_ARTICLE" => "修改文章",
+		"LOGIN" => "进入大厅",
+		"MENU" => "菜单选择",
+		"POST_ARTICLE" => "撰写文章",
+		"REPLY_ARTICLE" => "回复文章",
+		"TOP10_MENU" => "十大热门",
+		"USER_LIST" => "查花名册",
+		"USER_ONLINE" => "环顾四周",
+		"VIEW_ARTICLE" => "阅读文章",
+		"VIEW_FILE" => "查看文档",
+		"WWW" => "Web浏览",
+	);
+
 	$BBS_emoji_count			=	57;
 	$BBS_upload_count_limit		=	3;
 	$BBS_upload_size_limit		=	2; // MB

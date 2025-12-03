@@ -5,6 +5,7 @@
 		exit();
 	}
 
+	require_once "../lib/common.inc.php";
 	require_once "../lib/lml.inc.php";
 	require_once "../lib/str_process.inc.php";
 	require_once "../lib/astro.inc.php";
@@ -294,48 +295,7 @@ window.addEventListener("load", () => {
 <?php
 	foreach($result_set["data"]["current_action"] as $current_action)
 	{
-		switch($current_action)
-		{
-			case "MENU":
-				$current_action_name = "菜单选择";
-				break;
-			case "LOGIN":
-				$current_action_name = "进入大厅";
-				break;
-			case "USER_LIST":
-				$current_action_name = "查花名册";
-				break;
-			case "USER_ONLINE":
-				$current_action_name = "环顾四周";
-				break;
-			case "VIEW_FILE":
-				$current_action_name = "查看文档";
-				break;
-			case "VIEW_ARTICLE":
-				$current_action_name = "阅读文章";
-				break;
-			case "POST_ARTICLE":
-				$current_action_name = "撰写文章";
-				break;
-			case "EDIT_ARTICLE":
-				$current_action_name = "修改文章";
-				break;
-			case "REPLY_ARTICLE":
-				$current_action_name = "回复文章";
-				break;
-			case "BBS_NET":
-				$current_action_name = "站点穿梭";
-				break;
-			case "CHICKEN":
-				$current_action_name = "电子小鸡";
-				break;
-			case "WWW":
-				$current_action_name = "Web浏览";
-				break;
-			default:
-				$current_action_name = $current_action;
-		}
-
+		$current_action_name = (isset($BBS_user_actions[$current_action]) ? $BBS_user_actions[$current_action] : $current_action);
 		if ($current_action_name != "")
 		{
 			echo " <font color=green>[" . $current_action_name . "]</font>";
