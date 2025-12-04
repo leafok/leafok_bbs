@@ -37,7 +37,7 @@ function load_user_info($uid, $db_conn)
 
 	$_SESSION["BBS_priv"]->loadpriv($uid, $db_conn);
 
-	$stat = stat("./doc/eula.txt");
+	$stat = stat("../bbs/doc/eula.txt");
 	if ($stat !== false)
 	{
 		$BBS_eula_tm = $stat["mtime"];

@@ -209,7 +209,7 @@ window.addEventListener("load", () => {
 					<td colspan="2" align="center">
 						<span id="err_msg_agreement" name="err_msg" style="color: red;"></span>
 <?php
-	$buffer = file_get_contents("./doc/eula.txt");
+	$buffer = file_get_contents("../bbs/doc/eula.txt");
 	$license_f = LML($buffer, 1024, false);
 
 	echo <<<HTML
