@@ -147,6 +147,8 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 
 	$str_out = "";
 
+	$last_i = -1;
+	
 	$tag_start_pos = -1;
 	$tag_name_pos = -1;
 	$tag_end_pos = -1;
@@ -426,11 +428,19 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 
 						if ($line_width + $tag_output_len > $width)
 						{
-							$str_out .= "\n";
-							$new_line = true;
-							$line_width = 0;
-							$i--; // redo at current $i
-							continue;
+							if ($i > $last_i)
+							{
+								$last_i = $i;
+								$str_out .= "\n";
+								$new_line = true;
+								$line_width = 0;
+								$i--; // redo at current $i
+								continue;
+							}
+							else
+							{
+								continue; // Output current tag in plain text if line width exceeded
+							}
 						}
 
 						$str_out .= $tag_output_buf;
@@ -566,6 +576,7 @@ function lml_test()
 			": : 我已经割掉了\n" .
 			": : 555555555555\n" .
 			": : ",
+			"[image http://us.ent4.yimg.com/movies.yahoo.com/images/hv/photo/movie_pix/images/hv/photo/movie_pix/]\n",
 	);
 
 	echo ("Test #1\n");
