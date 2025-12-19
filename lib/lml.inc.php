@@ -59,14 +59,14 @@ $lml_tag_def = array(
 	"/link" => array("</a>", NULL, ""),
 	"email" => array("<a class=\"s7\" href=\"mailto:%s\">", "", ""),
 	"/email" => array("</a>", NULL, ""),
-	"user" => array("<a class=\"s7\" href=\"view_user.php?uid=%s\" target=_blank>", "", ""),
+	"user" => array("<a class=\"s7\" href=\"view_user.php?uid=%s\" target=_blank rel=\"noopener noreferrer\">", "", ""),
 	"/user" => array("</a>", NULL, ""),
 	"article" => array(NULL, "", ""),
 	"/article" => array("</a>", NULL, ""),
 	"marquee" => array("<marquee %s>", "", ""),
 	"/marquee" => array("</marquee>", NULL, ""),
 	"image" => array("<img src=\"%s\" border=0>", "", "%s"),
-	"flash" => array("<a class=\"s7\" href=\"%s\" target=_blank>View Flash</a>", "", ""),
+	"flash" => array("<a class=\"s7\" href=\"%s\" target=_blank rel=\"noopener noreferrer\">View Flash</a>", "", ""),
 	"bwf" => array("<span style=\"color: red\">****</span>", "", "****"),
 );
 
@@ -87,16 +87,16 @@ function lml_tag_filter(string $tag_name, string | null $tag_arg, bool $quote_mo
 			break;
 		case "link":
 		case "url":
-			if (preg_match("/script:/i", $tag_arg)) // Filter milicious code
+			if (preg_match("/^(javascript|data|vbscript|script|about|blob|file):/i", $tag_arg)) // Filter malicious code
 			{
 				$tag_arg = "#";
 			}
-			$tag_result = "<a class=\"s7\" href=\"" . $tag_arg . "\" target=_blank>";
+			$tag_result = "<a class=\"s7\" href=\"" . $tag_arg . "\" target=_blank rel=\"noopener noreferrer\">";
 			break;
 		case "article":
 			$tag_result = "<a class=\"s7\" href=\"/bbs/view_article.php?tn=" .
 							(isset($BBS_theme_current) ? $BBS_theme_current : "") . "&trash=1&id=" . intval($tag_arg) .
-							"#"  . intval($tag_arg) . "\" target=_blank>";
+							"#"  . intval($tag_arg) . "\" target=_blank rel=\"noopener noreferrer\">";
 			break;
 		case "color":
 			$tag_result = ($quote_mode ? "" : "<span style=\"color: " . $tag_arg . "\">");
@@ -145,7 +145,7 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 
 	$str_in_len = strlen($str_in);
 
-	$str_out = "";
+	$str_out = array();
 
 	$last_i = -1;
 	
@@ -183,12 +183,12 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 			if (!$quote_mode && $lml_tag_quote_level > 0 && $fb_quote_level != $fb_quote_level_last)
 			{
 				$tag_output_buf = lml_tag_filter("color", $lml_tag_quote_color[$lml_tag_quote_level % count($lml_tag_quote_color)], $quote_mode);
-				$str_out .= $tag_output_buf;
+				array_push($str_out, $tag_output_buf);
 			}
 
 			for ($k = 0; $k < $fb_quote_level; $k++)
 			{
-				$str_out .= ": ";
+				array_push($str_out, ": ");
 				$line_width += 2;
 			}
 
@@ -246,7 +246,7 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 				if ($fg_color > 0)
 				{
 					$tag_output_buf = lml_tag_filter("color", $lml_tag_ansi_color[$fg_color], $quote_mode);
-					$str_out .= $tag_output_buf;
+					array_push($str_out, $tag_output_buf);
 				}
 				else if ($bg_color > 0)
 				{
@@ -255,7 +255,7 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 				else // reset
 				{
 					$tag_output_buf = lml_tag_filter("/color", "", $quote_mode);
-					$str_out .= $tag_output_buf;
+					array_push($str_out, $tag_output_buf);
 				}
 			}
 			else if ($k < $str_in_len && ctype_alpha($str_in[$k]))
@@ -277,14 +277,14 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 			{
 				if ($line_width + 1 > $width)
 				{
-					$str_out .= "\n";
+					array_push($str_out, "\n");
 					$new_line = true;
 					$line_width = 0;
 					$i--; // redo at current $i
 					continue;
 				}
 
-				$str_out .= "[";
+				array_push($str_out, "[");
 				$line_width++;
 				$i = $tag_start_pos; // restart from $tag_start_pos + 1
 				$tag_start_pos = -1;
@@ -297,7 +297,7 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 				$lml_tag_quote_level -= $fb_quote_level;
 
 				$tag_output_buf = lml_tag_filter("/color", "", $quote_mode);
-				$str_out .= $tag_output_buf;
+				array_push($str_out, $tag_output_buf);
 
 				$fb_quote_level = 0;
 			}
@@ -321,14 +321,14 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 			$tab_width = $tab_size - ($line_width % $tab_size);
 			if ($line_width + $tab_width > $width)
 			{
-				$str_out .= "\n";
+				array_push($str_out, "\n");
 				$new_line = true;
 				$line_width = 0;
 				// skip current Tab
 				continue;
 			}
 
-			$str_out .= str_repeat(" ", $tab_width);
+			array_push($str_out, str_repeat(" ", $tab_width));
 			$line_width += $tab_width;
 			continue;
 		}
@@ -339,14 +339,14 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 			{
 				if ($line_width + 1 > $width)
 				{
-					$str_out .= "\n";
+					array_push($str_out, "\n");
 					$new_line = true;
 					$line_width = 0;
 					$i--; // redo at current $i
 					continue;
 				}
 
-				$str_out .= "[";
+				array_push($str_out, "[");
 				$line_width++;
 				$i = $tag_start_pos; // restart from $tag_start_pos + 1
 				$tag_start_pos = -1;
@@ -410,7 +410,7 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 							$tag_output_buf = lml_tag_filter($tag_name, $tag_param_buf, false);
 						}
 
-						$str_out .= $tag_output_buf;
+						array_push($str_out, $tag_output_buf);
 						// No change to $line_width becasue LML tag output as HTML tag should be 0-width
 					}
 					else // if ($quote_mode)
@@ -431,7 +431,7 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 							if ($i > $last_i)
 							{
 								$last_i = $i;
-								$str_out .= "\n";
+								array_push($str_out, "\n");
 								$new_line = true;
 								$line_width = 0;
 								$i--; // redo at current $i
@@ -443,7 +443,7 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 							}
 						}
 
-						$str_out .= $tag_output_buf;
+						array_push($str_out, $tag_output_buf);
 						$line_width += $tag_output_len; // Add width of special tags, [plain] [left] [right]
 					}
 				}
@@ -452,14 +452,14 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 			{
 				if ($line_width + 1 > $width)
 				{
-					$str_out .= "\n";
+					array_push($str_out, "\n");
 					$new_line = true;
 					$line_width = 0;
 					$i--; // redo at current $i
 					continue;
 				}
 
-				$str_out .= "[";
+				array_push($str_out, "[");
 				$line_width++;
 				$i = $tag_start_pos; // restart from $tag_start_pos + 1
 				$tag_start_pos = -1;
@@ -477,7 +477,7 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 
 			if ($line_width + ($v & 0x80 ? 2 : 1) > $width)
 			{
-				$str_out .= "\n";
+				array_push($str_out, "\n");
 				$new_line = true;
 				$line_width = 0;
 				$i--; // redo at current $i
@@ -504,7 +504,7 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 				$c = htmlspecialchars($c, ENT_QUOTES | ENT_HTML401, 'UTF-8');
 			}
 
-			$str_out .= $c;
+			array_push($str_out, $c);
 			$line_width++;
 		}
 		else // in LML tag
@@ -517,20 +517,20 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 	{
 		$tag_end_pos = $i - 1;
 		$tag_output_len = $tag_end_pos - $tag_start_pos + 1;
-		$str_out .= substr($str_in, $tag_start_pos, $tag_output_len);
+		array_push($str_out, substr($str_in, $tag_start_pos, $tag_output_len));
 		$line_width += $tag_output_len;
 	}
 
 	if (!$quote_mode && !$lml_tag_disabled && $lml_tag_quote_level > 0)
 	{
 		$tag_output_buf = lml_tag_filter("/quote", "", $quote_mode);
-		$str_out .= $tag_output_buf;
+		array_push($str_out, $tag_output_buf);
 	}
 
 	$time_end = microtime(true);
 	$lml_total_exec_duration += ($time_end - $time_start);
 
-	return $str_out;
+	return implode("", $str_out);
 }
 
 function lml_test()
