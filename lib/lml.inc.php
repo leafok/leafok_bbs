@@ -576,7 +576,8 @@ function lml_test()
 			": : 我已经割掉了\n" .
 			": : 555555555555\n" .
 			": : ",
-			"[image http://us.ent4.yimg.com/movies.yahoo.com/images/hv/photo/movie_pix/images/hv/photo/movie_pix/]\n",
+		"[image http://us.ent4.yimg.com/movies.yahoo.com/images/hv/photo/movie_pix/images/hv/photo/movie_pix/]\n",
+		"[tag-name-buffer-overflow abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789]\n",
 	);
 
 	echo ("Test #1\n");
