@@ -168,10 +168,11 @@
 	}
 
 	$sql = "SELECT UID, username, p_login, verified, temp_password,
-			password = MD5('$password') AS old_pass
+			password = MD5('$password') AS old_pass,
+			(temp_password = SHA2('$password', 256) OR temp_password = '$password') AS temp_pass
 			FROM user_list WHERE username = '$username' AND
 			(password = MD5('$password') OR password = SHA2('$password', 256) OR
-			temp_password = '$password')
+			temp_password = SHA2('$password', 256) OR temp_password = '$password')
 			AND enable FOR UPDATE";
 
 	$rs = mysqli_query($db_conn, $sql);
@@ -191,7 +192,7 @@
 		$uid = intval($row["UID"]);
 		$username = $row["username"];
 
-		if ($password == $row["temp_password"] && !$ch_passwd)
+		if ($row["temp_pass"] && !$ch_passwd)
 		{
 			$result_set["return"]["code"] = 2;
 			$result_set["return"]["message"] = "使用临时密码登录需设置新密码";
@@ -202,7 +203,7 @@
 
 		if ($ch_passwd)
 		{
-			if ($password == $row["temp_password"]) // New user first time login with temp password
+			if ($row["temp_pass"]) // Login with temp password
 			{
 				$verified = 1;
 

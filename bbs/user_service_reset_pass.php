@@ -66,7 +66,7 @@
 		exit(json_encode($result_set));
 	}
 
-	$sql = "SELECT user_list.UID, username, temp_password, email FROM user_list
+	$sql = "SELECT user_list.UID, username, email FROM user_list
 			INNER JOIN user_pubinfo ON user_list.UID = user_pubinfo.UID
 			WHERE user_list.enable AND username = '$username' and email = '$email'";
 
@@ -84,7 +84,6 @@
 	{
 		$uid = $row["UID"];
 		$username = $row["username"];
-		$temp_password = $row["temp_password"];
 		$email = $row["email"];
 	}
 	else
@@ -101,12 +100,9 @@
 
 	mysqli_free_result($rs);
 
-	if ($temp_password == null || $temp_password == "")
-	{
-		$temp_password = gen_passwd(10);
-	}
+	$temp_password = gen_passwd(10);
 
-	$sql = "UPDATE user_list SET temp_password = '$temp_password'
+	$sql = "UPDATE user_list SET temp_password = SHA2('$temp_password', 256)
 			WHERE UID = $uid";
 
 	$rs = mysqli_query($db_conn, $sql);

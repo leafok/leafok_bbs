@@ -246,7 +246,7 @@
 	// Create new user
 	$temp_password = gen_passwd(10);
 
-	$sql = "INSERT INTO user_list(username, temp_password) values('$username', '$temp_password')";
+	$sql = "INSERT INTO user_list(username, temp_password) values('$username', SHA2('$temp_password', 256))";
 
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)

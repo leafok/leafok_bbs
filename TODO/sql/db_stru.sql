@@ -212,7 +212,7 @@ CREATE TABLE `user_list` (
   `UID` mediumint NOT NULL,
   `username` varchar(20) NOT NULL DEFAULT '',
   `password` varchar(64) NOT NULL DEFAULT '',
-  `temp_password` varchar(20) NOT NULL DEFAULT '',
+  `temp_password` varchar(64) NOT NULL DEFAULT '',
   `enable` tinyint UNSIGNED NOT NULL DEFAULT '1',
   `verified` tinyint UNSIGNED NOT NULL DEFAULT '0',
   `p_login` tinyint UNSIGNED NOT NULL DEFAULT '1',
