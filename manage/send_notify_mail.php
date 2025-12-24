@@ -109,4 +109,23 @@
 		exit();
 	}
 
+	$rs = mysqli_query($db_conn, "SET autocommit=1");
+	if ($rs == false)
+	{
+		$result_set["return"]["code"] = -2;
+		$result_set["return"]["message"] = "Mysqli error: " . mysqli_error($db_conn);
+
+		mysqli_close($db_conn);
+		exit(json_encode($result_set));
+	}
+
+	if (send_mail_do($db_conn) < 0)
+	{
+		$result_set["return"]["code"] = -2;
+		$result_set["return"]["message"] = "Send mail error";
+
+		mysqli_close($db_conn);
+		exit(json_encode($result_set));
+	}
+
 	mysqli_close($db_conn);
