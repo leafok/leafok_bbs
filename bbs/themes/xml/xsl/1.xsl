@@ -112,7 +112,7 @@ TD.content_deleted
 				<tr>
 					<td colspan="3">
 						<p align="center" style="color:gray; font-size:12px;">
-							Copyright (C) 2001-2025 枫林在线  All Rights Reserved
+							Copyright (C) 2001-2026 枫林在线  All Rights Reserved
 						</p>
 					</td>
 				</tr>

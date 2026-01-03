@@ -1,6 +1,6 @@
 # LeafOK BBS
 
-Copyright (C) LeafOK.com, 2001-2025
+Copyright (C) LeafOK.com, 2001-2026
 
 演示站点位于：https://fenglin.info/bbs/
 
