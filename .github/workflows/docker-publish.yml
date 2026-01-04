@@ -48,7 +48,7 @@ jobs:
           context: .
           file: ./Dockerfile/dockerfile.apache
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: lbbs-apache_${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Build and push Docker image (php)
@@ -58,5 +58,5 @@ jobs:
           context: .
           file: ./Dockerfile/dockerfile.php
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: lbbs-php_${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
