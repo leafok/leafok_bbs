@@ -1,0 +1,43 @@
+services:
+  apache:
+    build:
+      context: .
+      dockerfile: Dockerfile/dockerfile.apache
+    ports:
+      - "8080:8081"
+    volumes:
+      - www-data:/var/www/html
+      - apache-logs:/usr/local/apache2/logs
+    depends_on:
+      - php
+    networks:
+      - app-network
+
+  php:
+    build:
+      context: .
+      dockerfile: Dockerfile/dockerfile.php
+    volumes:
+      - www-data:/var/www/html
+      - php-sessions:/var/lib/php/sessions
+      - apache-logs:/usr/local/apache2/logs
+    networks:
+      - app-network
+    expose:
+      - "9000"
+    command: [ "php-fpm" ]
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  www-data:
+    # Volume for persistent storage of web data
+    driver: local
+  php-sessions:
+    # Volume for persistent storage of PHP session data
+    driver: local
+  apache-logs:
+    # Volume for persistent storage of Apache logs
+    driver: local
