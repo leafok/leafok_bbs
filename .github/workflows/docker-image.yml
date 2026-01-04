@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Copy configuration files from template
+      run: cp -R TODO/conf conf
+
+    - name: Build the Docker image (Apache)
+      run: docker build . --file Dockerfile/dockerfile.apache --tag my-image-name:$(date +%s)
+
+    - name: Build the Docker image (PHP)
+      run: docker build . --file Dockerfile/dockerfile.php --tag my-image-name:$(date +%s)
