@@ -19,7 +19,7 @@ jobs:
       run: cp -R TODO/conf conf
 
     - name: Build the Docker image (Apache)
-      run: docker build . --file Dockerfile/dockerfile.apache --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile/dockerfile.apache --tag lbbs-apache:$(date +%s)
 
     - name: Build the Docker image (PHP)
-      run: docker build . --file Dockerfile/dockerfile.php --tag my-image-name:$(date +%s)
+      run: docker build . --file Dockerfile/dockerfile.php --tag lbbs-php:$(date +%s)
