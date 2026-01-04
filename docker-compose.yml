@@ -1,6 +1,6 @@
 services:
   apache:
-    image: lbbs-apache:1.0.0
+    image: leafok/lbbs-apache
     build:
       context: .
       dockerfile: Dockerfile/dockerfile.apache
@@ -15,7 +15,7 @@ services:
       - app-network
 
   php:
-    image: lbbs-php:1.0.0
+    image: leafok/lbbs-php
     build:
       context: .
       dockerfile: Dockerfile/dockerfile.php
