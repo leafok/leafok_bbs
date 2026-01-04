@@ -15,7 +15,7 @@ function send_mail_do($db_conn)
 
 	$MailFactory = new Mail();
 
-	switch ($Mail_Type)
+	switch (strtolower($Mail_Type))
 	{
 		case "sendmail":
 			$params['sendmail_path'] = '/usr/lib/sendmail';
