@@ -13,6 +13,10 @@ on:
   release:
     types: [published]
 
+env:
+  APACHE_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/lbbs-apache
+  PHP_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/lbbs-php
+
 jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
@@ -27,7 +31,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
+        uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -43,20 +47,24 @@ jobs:
 
       - name: Build and push Docker image (apache)
         id: push-apache
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile/dockerfile.apache
           push: true
-          tags: lbbs-apache_${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ env.APACHE_IMAGE }}:${{ github.ref_name }}
+            ${{ env.APACHE_IMAGE }}:latest
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Build and push Docker image (php)
         id: push-php
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
+        uses: docker/build-push-action@v5
         with:
           context: .
           file: ./Dockerfile/dockerfile.php
           push: true
-          tags: lbbs-php_${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ env.PHP_IMAGE }}:${{ github.ref_name }}
+            ${{ env.PHP_IMAGE }}:latest
           labels: ${{ steps.meta.outputs.labels }}
