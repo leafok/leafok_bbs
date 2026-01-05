@@ -1,3 +1,5 @@
+CVS
+.cvsignore
 /bbs/cache
 /bbs/doc/history
 /bbs/doc/license

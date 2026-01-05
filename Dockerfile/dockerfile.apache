@@ -6,13 +6,15 @@ COPY ./Dockerfile/httpd-vhosts.conf /usr/local/apache2/conf/extra/httpd-vhosts.c
 RUN sed -i 's/#Include conf\/extra\/httpd-vhosts.conf/Include conf\/extra\/httpd-vhosts.conf/' /usr/local/apache2/conf/httpd.conf
 
 # Copy web application files
-RUN mkdir -p /var/www/html/gen_ex
 COPY ./bbs /var/www/html/bbs
-COPY ./gen_ex/*.css /var/www/html/gen_ex/
+COPY ./gen_ex /var/www/html/gen_ex
 COPY ./js /var/www/html/js
 COPY ./lib /var/www/html/lib
 COPY ./manage /var/www/html/manage
-RUN mkdir -p /var/www/html/bbs/cache /var/www/html/bbs/upload /var/www/html/conf /var/www/html/stat
+RUN mkdir -p /var/www/html/bbs/cache \
+    /var/www/html/bbs/upload \
+    /var/www/html/bbs/images/face/upload_photo \
+    /var/www/html/conf /var/www/html/stat
 
 # Set ownership to www-data user and group
 RUN chown -R www-data:www-data /var/www/html
