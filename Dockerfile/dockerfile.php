@@ -5,7 +5,8 @@ FROM php:8.4-fpm
 RUN apt-get update && apt-get install -y \
 	libfreetype-dev libjpeg62-turbo-dev libpng-dev libxml2-dev \
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
-	&& docker-php-ext-install -j$(nproc) gd mysqli
+	&& docker-php-ext-install -j$(nproc) gd mysqli \
+	&& rm -rf /var/lib/apt/lists/*
 
 # Copy the custom configuration file
 COPY ./Dockerfile/php.ini /usr/local/etc/php/php.ini
