@@ -42,9 +42,6 @@ jobs:
         with:
           images: leafok/lbbs
 
-      - name: Copy configuration files from template
-        run: cp -R TODO/conf conf
-
       - name: Build and push Docker image (apache)
         id: push-apache
         uses: docker/build-push-action@v5

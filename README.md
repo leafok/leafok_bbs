@@ -35,12 +35,13 @@ Copyright (C) LeafOK.com, 2001-2026
 
 Docker用户
 =================
-1) 可以从源代码位置修改配置后，直接生成镜像并启动容器  
+可以从源代码位置修改配置后，直接生成镜像并启动容器  
    docker compose up --build -d  
 
-2) 也可以从Docker Hub下载镜像文件  
+也可以从Docker Hub下载镜像文件  
    docker compose pull  
-   需要在容器生成的www-data卷的/var/www/html/conf目录下，修改各种配置  
+
+需要在容器的/var/www/html/conf目录下，修改或导入配置文件  
 
 
 报告Bug/参与改进

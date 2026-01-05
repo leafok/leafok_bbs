@@ -15,9 +15,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Copy configuration files from template
-      run: cp -R TODO/conf conf
-
     - name: Build the Docker image (Apache)
       run: docker build . --file Dockerfile/dockerfile.apache --tag lbbs-apache:$(date +%s)
 
