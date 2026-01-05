@@ -1,9 +1,9 @@
 # Use an official PHP-FPM image (adjust version as needed)
 FROM php:8.4-fpm
 
-# Example: Install common PHP extensions
+# Install PHP extensions
 RUN apt-get update && apt-get install -y \
-	libfreetype-dev libjpeg62-turbo-dev libpng-dev libxml2-dev \
+	libfreetype-dev libjpeg62-turbo-dev libpng-dev \
 	&& docker-php-ext-configure gd --with-freetype --with-jpeg \
 	&& docker-php-ext-install -j$(nproc) gd mysqli \
 	&& rm -rf /var/lib/apt/lists/*
