@@ -19,7 +19,7 @@ INSERT INTO `section_master` (`MID`, `SID`, `UID`, `begin_dt`, `end_dt`, `enable
 (1, 1, 1, '2026-01-01 00:00:00', '2036-01-01 00:00:00', 1, 1, NULL);
 
 INSERT INTO `user_list` (`UID`, `username`, `password`, `temp_password`, `enable`, `verified`, `p_login`, `p_post`, `p_msg`) VALUES
-(1, 'sysop', '55b8624bb2d098bf1c01a7ad884f0037244ac4bd08b447462cb8b00000e954ba', '', 1, 1, 1, 1, 1);
+(1, 'sysop', '', '55b8624bb2d098bf1c01a7ad884f0037244ac4bd08b447462cb8b00000e954ba', 1, 1, 1, 1, 1);
 
 INSERT INTO `user_nickname` (`NID`, `UID`, `nickname`, `begin_dt`, `begin_reason`, `end_dt`, `end_reason`) VALUES
 (1, 1, '懂王', '2026-01-01 00:00:00', 'R', NULL, NULL);

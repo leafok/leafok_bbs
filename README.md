@@ -16,7 +16,8 @@ Copyright (C) LeafOK.com, 2001-2026
 
 安装和使用说明
 =================
-1) 数据库结构位于 TODO/sql/db_stru.sql ，需先导入  
+1) 数据库结构位于 TODO/sql/db_stru.sql，需先导入
+   (可选) 测试数据位于 TODO/sql/sample_data.sql，测试账户为sysop，临时密码 (登陆时需修改) 为3anzHaNg  
 
 2) 将 TODO/conf/ 目录下的文件复制到 conf 目录下（如不存在），并修改  
    数据库连接需要修改conf/db_conn.conf.php  
