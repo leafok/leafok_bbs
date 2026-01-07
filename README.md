@@ -15,22 +15,29 @@ Chinese version of README.md is located at [README.zh_CN.md](README.zh_CN.md)
 Demo site: https://fenglin.info/bbs/
 
 ## Installation and Usage Instructions
-1) **Database Setup:** Import the database structure from `TODO/sql/db_stru.sql`
-   *(Optional)* Import test data from `TODO/sql/sample_data.sql`. Test account: `sysop`, temporary password (must be changed upon login): `3anzHaNg`
+1) **Database Setup:**
+   - Import the database structure from `TODO/sql/db_stru.sql`
+   - *(Optional)* Import test data from `TODO/sql/sample_data.sql`. Test account: `sysop`, temporary password (must be changed upon login): `3anzHaNg`
 
-2) **Configuration:** Copy files from `TODO/conf/` directory to `conf` directory (create if it doesn't exist), then modify:
+2) **Configuration:**
+   - Copy files from `TODO/conf/` directory to `conf` directory (create if it doesn't exist), then modify:
    - Database connection: Edit `conf/db_conn.conf.php`
    - Email sending: Supports both SMTP and local sendmail. Edit `conf/smtp.conf.php`
 
-3) **Site Customization:** Modify `lib/common.inc.php` for site-specific configurations
+3) **Site Customization:**
+   - Modify `lib/common.inc.php` for site-specific configurations
 
-4) **Directory Permissions:** Create directories `bbs/cache`, `bbs/upload`, and `stat` (if they don't exist). Ensure the web server user has write permissions for directories: `bbs/cache`, `bbs/upload`, `gen_ex`, and `stat`
+4) **Directory Permissions:**
+   - Create directories `bbs/cache`, `bbs/upload`, and `stat` (if they don't exist). Ensure the web server user has write permissions for directories: `bbs/cache`, `bbs/upload`, `gen_ex`, and `stat`
 
-5) **Account Creation:** Create administrator and initial accounts through the registration page (involves multiple database tables; not recommended to create directly in the database)
+5) **Account Creation:**
+   - Create administrator and initial accounts through the registration page (involves multiple database tables; not recommended to create directly in the database)
 
-6) **Database Setup:** Add administrator accounts, categories, and sections in the database (tables: `admin_config`, `section_class`, `section_config`)
+6) **Database Setup:**
+   - Add administrator accounts, categories, and sections in the database (tables: `admin_config`, `section_class`, `section_config`)
 
-7) **Management and Background Jobs:** Management programs and scheduled background tasks (requires adding to crontab) are located in the `manage` directory
+7) **Management and Background Jobs:**
+   - Management programs and scheduled background tasks (requires adding to crontab) are located in the `manage` directory
 
 ## Docker Users
 You can build and start the container directly from the source code location after modifying configurations:
