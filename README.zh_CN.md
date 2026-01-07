@@ -1,5 +1,7 @@
 # LeafOK BBS
 
+英文版本的README.md位于[README.md](README.md)
+
 ## 程序简介
 =================
 **开发语言：** PHP (8.2) + MySQL (8.4)  

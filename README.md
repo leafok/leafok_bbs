@@ -1,5 +1,7 @@
 # LeafOK BBS
 
+Chinese version of README.md is located at [README.zh_CN.md](README.zh_CN.md)
+
 ## Program Overview
 =================
 **Development Language:** PHP (8.2) + MySQL (8.4)  
