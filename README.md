@@ -3,9 +3,8 @@
 Chinese version of README.md is located at [README.zh_CN.md](README.zh_CN.md)
 
 ## Program Overview
-**Development Language:** PHP (8.2) + MySQL (8.4)
-**Platform:** Linux / Windows
-**License:** Source code released under GNU GPL license
+**Development Language:**  
+PHP (8.2) + MySQL (8.4)  
 **Features:**
 - Web-based article browsing, posting, searching, and other basic functions
 - Support for multiple categories and sections, each with discussion areas, digest areas, and featured areas
