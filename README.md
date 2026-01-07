@@ -1,51 +1,57 @@
 # LeafOK BBS
 
-Copyright (C) LeafOK.com, 2001-2026
-
-演示站点位于：https://fenglin.info/bbs/
-
-程序简介
+## Program Overview
 =================
-开发语言：PHP (8.2) + MySQL (8.4)  
-运行平台：Linux / Windows  
-软件性质：源代码采用 GNU GPL 授权发布  
-功能说明：  
-    基于Web的文章浏览、发表、查找等基本功能和其它各种实用功能，可开设多类别多版块，各版块分设讨论区、文摘区、精华区，并提供全面的版主管理支持。  
-    Telnet方式的登陆访问、文章查看、游戏等功能（可选，详见[lbbs](https://github.com/leafok/lbbs)）  
+**Development Language:** PHP (8.2) + MySQL (8.4)  
+**Platform:** Linux / Windows  
+**License:** Source code released under GNU GPL license  
+**Features:**  
+    - Web-based article browsing, posting, searching, and other basic functions  
+    - Support for multiple categories and sections, each with discussion areas, digest areas, and featured areas  
+    - Comprehensive moderator management support  
+    - Optional Telnet access for login, article viewing, games, etc. (see [lbbs](https://github.com/leafok/lbbs) for details)  
+Demo site: https://fenglin.info/bbs/
 
-
-安装和使用说明
+## Installation and Usage Instructions
 =================
-1) 数据库结构位于 TODO/sql/db_stru.sql，需先导入
-   (可选) 测试数据位于 TODO/sql/sample_data.sql，测试账户为sysop，临时密码 (登陆时需修改) 为3anzHaNg  
+1) **Database Setup:** Import the database structure from `TODO/sql/db_stru.sql`  
+   *(Optional)* Import test data from `TODO/sql/sample_data.sql`. Test account: `sysop`, temporary password (must be changed upon login): `3anzHaNg`  
 
-2) 将 TODO/conf/ 目录下的文件复制到 conf 目录下（如不存在），并修改  
-   数据库连接需要修改conf/db_conn.conf.php  
-   邮件发送支持SMTP和本地sendmail两种方式，需要修改conf/smtp.conf.php  
+2) **Configuration:** Copy files from `TODO/conf/` directory to `conf` directory (create if it doesn't exist), then modify:  
+   - Database connection: Edit `conf/db_conn.conf.php`  
+   - Email sending: Supports both SMTP and local sendmail. Edit `conf/smtp.conf.php`  
 
-3) 修改 lib/common.inc.php 文件（站点个性化配置）  
+3) **Site Customization:** Modify `lib/common.inc.php` for site-specific configurations  
 
-4) 创建目录 bbs/cache bbs/upload stat（如果不存在的话），并确保web服务器运行账户拥有写目录 bbs/cache bbs/upload gen_ex stat 的权限  
+4) **Directory Permissions:** Create directories `bbs/cache`, `bbs/upload`, and `stat` (if they don't exist). Ensure the web server user has write permissions for directories: `bbs/cache`, `bbs/upload`, `gen_ex`, and `stat`  
 
-5) 通过注册页面创建管理员账号等初始账号（涉及多张数据表，不建议直接在数据库中创建）  
+5) **Account Creation:** Create administrator and initial accounts through the registration page (involves multiple database tables; not recommended to create directly in the database)  
 
-6) 在数据库中添加管理员帐号、栏目、版块等（分别位于admin_config、section_class、section_config表）  
+6) **Database Setup:** Add administrator accounts, categories, and sections in the database (tables: `admin_config`, `section_class`, `section_config`)  
 
-7) 管理程序和定时后台作业（需要自行添加crontab）位于 manage 目录下  
+7) **Management and Background Jobs:** Management programs and scheduled background tasks (requires adding to crontab) are located in the `manage` directory  
 
-
-Docker用户
+## Docker Users
 =================
-可以从源代码位置修改配置后，直接生成镜像并启动容器  
-   docker compose up --build -d  
+You can build and start the container directly from the source code location after modifying configurations:  
+   ```bash
+   docker compose up --build -d
+   ```
 
-也可以从Docker Hub下载镜像文件  
-   docker compose pull  
+Alternatively, download the image from Docker Hub:  
+   ```bash
+   docker compose pull
+   ```
 
-需要在容器的/var/www/html/conf目录下，修改或导入配置文件  
+Modify or import configuration files in the container's `/var/www/html/conf` directory  
 
-
-报告Bug/参与改进
+## Copyright Information
 =================
-由于本程序源代码采用 GNU GPL 授权发布，如果您发现任何错误或者愿意加入本BBS的开发，请与我们联系。  
-E-mail: leaflet@leafok.com  
+Copyright (C) 2004-2026 Leaflet <leaflet@leafok.com>  
+
+## License
+==================
+This program is free software; you can redistribute it and/or modify 
+it under the terms of the [GNU General Public License](LICENSE) as published by 
+the Free Software Foundation; either version 3 of the License, or    
+(at your option) any later version.   
