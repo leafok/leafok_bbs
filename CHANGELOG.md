@@ -2,40 +2,38 @@
 
 Copyright (C) LeafOK.com, 2001-2026
 
-https://www.leafok.com
-
-2025-11
+November 2025
 =================
-Refact LML render with new implementation
-Minor enhancement and bug fix  
+Refactored LML renderer with new implementation
+Minor enhancements and bug fixes  
 
-2025-06
+June 2025
 =================
-DB schema change for LBBS (terminal server version)  
-Minor enhancement and bug fix
+DB schema changes for LBBS (terminal server version)  
+Minor enhancements and bug fixes
 
-2025-04
+April 2025
 =================
-Replace MyISAM storage engine with InnoDB  
-Use UTF-8 instead of GBK in both data and web pages  
-Seperate backend logic and web view for major features  
-Add user TZ setting  
-Add theme support for major features  
-Many feature enhancement and bug fix  
+Replaced MyISAM storage engine with InnoDB  
+Using UTF-8 instead of GBK in both data and web pages  
+Separated backend logic and web view for major features  
+Added user timezone setting  
+Added theme support for major features  
+Multiple feature enhancements and bug fixes  
 
-2025-02
+February 2025
 =================
-Purge Innbbsd related data and programs  
-Purge BBSViewer related programs (both server and client)  
+Purged Innbbsd related data and programs  
+Purged BBSViewer related programs (both server and client)  
 
-2003-08
+August 2003
 =================
-Add Innbbsd, which provides INN transport features between LeafOK BBS and INND service.  
+Added Innbbsd, which provides INN transport features between LeafOK BBS and INND service.  
 
-2003-05
+May 2003
 =================
-Add BBSViewer, a Windows desktop application for viewing the posts.  
+Added BBSViewer, a Windows desktop application for viewing posts.  
 
-2001-01
+January 2001
 =================
-Initial version of LeafOK BBS, a web-based BBS  
+Initial version of LeafOK BBS, a web-based BBS
