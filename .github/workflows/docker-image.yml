@@ -15,8 +15,5 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Build the Docker image (Apache)
-      run: docker build . --file Dockerfile/dockerfile.apache --tag lbbs-apache:$(date +%s)
-
-    - name: Build the Docker image (PHP)
-      run: docker build . --file Dockerfile/dockerfile.php --tag lbbs-php:$(date +%s)
+    - name: Build the Docker image
+      run: docker compose build
