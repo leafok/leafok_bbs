@@ -2,6 +2,10 @@
 
 Chinese version: [CHANGELOG.zh_CN.md](CHANGELOG.zh_CN.md)
 
+## January 2026
+
+- Docker container deployment support
+
 ## November 2025
 
 - Refactored LML (Lightweight Markup Language) renderer with new implementation
