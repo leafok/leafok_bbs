@@ -27,6 +27,7 @@
 ### 2. 配置文件
 - 将 `TODO/conf/` 目录下的文件复制到 `conf` 目录下（如不存在）
 - 修改以下文件：
+  - 站点信息：编辑 `conf/site.conf.php`
   - 数据库连接：编辑 `conf/db_conn.conf.php`
   - 邮件发送：编辑 `conf/smtp.conf.php`（支持SMTP和本地sendmail两种方式）
 

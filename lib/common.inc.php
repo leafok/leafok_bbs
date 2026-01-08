@@ -1,12 +1,16 @@
 <?php
-	//Definition of const
-	$BBS_sys_uid				=	600;
-	$BBS_notice_sid				=	39;
+	// Default config
+	$BBS_sys_uid				=	1;
+	$BBS_notice_sid				=	1;
 	$BBS_default_cid			=	1;
-	$BBS_default_sid			=	4;
-	$BBS_name					=	"枫林在线";
-	$BBS_host_name				=	"FengLin.info";
-	$BBS_copyright_duration		=	"2001-2026";
+	$BBS_default_sid			=	1;
+	$BBS_name					=	"MyBBS";
+	$BBS_host_name				=	"localhost";
+	$BBS_copyright_duration		=	"2026";
+	$BBS_timezone				=	'Asia/Shanghai';
+
+	// Override by user config
+	include "../conf/site.conf.php";
 
 	$BBS_max_user_per_email		=	3;
 
@@ -121,7 +125,6 @@
 	$PHP_bin					=	"php";
 
 	// Keep this consistent with $DB_session_timezone in db_open.conf.php
-	$BBS_timezone				=	'Asia/Shanghai';
 	$BBS_runtime_tz				=	new DateTimeZone($BBS_timezone);
 
 	// Assume DateTime fields retrieved from DB are in $BBS_runtime_tz timezone

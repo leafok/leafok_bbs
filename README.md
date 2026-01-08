@@ -27,6 +27,7 @@ Chinese version: [README.zh_CN.md](README.zh_CN.md)
 ### 2. Configuration
 - Copy files from `TODO/conf/` directory to `conf` directory (create if it doesn't exist)
 - Modify the following files:
+  - Site information: Edit `conf/site.conf.php`
   - Database connection: Edit `conf/db_conn.conf.php`
   - Email sending: Edit `conf/smtp.conf.php` (supports both SMTP and local sendmail)
 
