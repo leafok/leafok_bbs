@@ -26,7 +26,7 @@ jobs:
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
 
-    - name: Build the Docker image
+    - name: Build the Docker image (apache)
       id: build-apache
       uses: docker/build-push-action@v5
       with:
@@ -37,7 +37,7 @@ jobs:
           ${{ env.APACHE_IMAGE }}:dev
         labels: ${{ steps.meta.outputs.labels }}
 
-    - name: Build the Docker image
+    - name: Build the Docker image (php)
       id: build-php
       uses: docker/build-push-action@v5
       with:
