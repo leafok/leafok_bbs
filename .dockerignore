@@ -9,7 +9,6 @@ CVS
 /bbs/doc/license
 /bbs/upload
 /bbs/images/face/upload_photo
-/composer.lock
 /conf
 /gen_ex/[0-9]*
 /gen_ex/pack
@@ -23,5 +22,4 @@ CVS
 /vendor
 /www
 /index.php
-/package-lock.json
 /robots.txt

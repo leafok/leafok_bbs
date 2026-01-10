@@ -1,3 +1,13 @@
+FROM composer:latest AS composer_installer
+
+# Set working directory
+RUN mkdir -p /usr/local/composer
+
+WORKDIR /usr/local/composer
+
+COPY ./composer.json ./composer.lock ./
+RUN /usr/bin/composer install --prefer-dist --no-scripts --no-progress
+
 # Use the official Apache image
 FROM httpd:2.4
 
@@ -15,6 +25,9 @@ RUN mkdir -p /var/www/html/bbs/cache \
     /var/www/html/bbs/upload \
     /var/www/html/bbs/images/face/upload_photo \
     /var/www/html/conf /var/www/html/stat
+
+# Copy the composer binary from the installer stage into your final image
+COPY --from=composer_installer /usr/local/composer/vendor /var/www/html/vendor
 
 # Set ownership to www-data user and group
 RUN chown -R www-data:www-data /var/www/html
