@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  DOCKERHUB_PLATFORMS: linux/amd64,linux/arm64
+  APACHE_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/lbbs-apache
+  PHP_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/lbbs-php
+
 jobs:
 
   build:
@@ -15,5 +20,30 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
     - name: Build the Docker image
-      run: docker compose build
+      id: build-apache
+      uses: docker/build-push-action@v5
+      with:
+        platforms: ${{ env.DOCKERHUB_PLATFORMS }}
+        context: .
+        file: Dockerfile/dockerfile.apache
+        tags: |
+          ${{ env.APACHE_IMAGE }}:dev
+        labels: ${{ steps.meta.outputs.labels }}
+
+    - name: Build the Docker image
+      id: build-php
+      uses: docker/build-push-action@v5
+      with:
+        platforms: ${{ env.DOCKERHUB_PLATFORMS }}
+        context: .
+        file: Dockerfile/dockerfile.php
+        tags: |
+          ${{ env.APACHE_IMAGE }}:dev
+        labels: ${{ steps.meta.outputs.labels }}

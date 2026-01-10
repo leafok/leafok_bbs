@@ -14,6 +14,7 @@ on:
     types: [published]
 
 env:
+  DOCKERHUB_PLATFORMS: linux/amd64,linux/arm64
   APACHE_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/lbbs-apache
   PHP_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/lbbs-php
 
@@ -40,6 +41,7 @@ jobs:
         id: push-apache
         uses: docker/build-push-action@v5
         with:
+          platforms: ${{ env.DOCKERHUB_PLATFORMS }}
           context: .
           file: ./Dockerfile/dockerfile.apache
           push: true
@@ -52,6 +54,7 @@ jobs:
         id: push-php
         uses: docker/build-push-action@v5
         with:
+          platforms: ${{ env.DOCKERHUB_PLATFORMS }}
           context: .
           file: ./Dockerfile/dockerfile.php
           push: true
