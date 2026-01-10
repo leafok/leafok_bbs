@@ -1,7 +1,9 @@
 <?php
+// Require Composer's autoloader
+require_once "../vendor/autoload.php";
+
 require_once "../conf/smtp.conf.php";
 require_once "../lib/common.inc.php";
-require_once "Mail.php";
 
 function send_mail_do($db_conn)
 {
