@@ -6,6 +6,7 @@ CVS
 /bbs/upload
 /bbs/images/face/upload_photo
 /conf
+/export_xml
 /gen_ex/[0-9]*
 /gen_ex/pack
 /gen_ex/static
