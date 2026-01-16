@@ -202,7 +202,7 @@
 <?php
 		if ((!$row["static"]) || (!file_exists("../gen_ex/static/".$row["AID"].".html")))
 		{
-			$buffer = shell_exec($PHP_bin . " ../bbs/view_article.php " . $row["AID"]);
+			$buffer = shell_exec($PHP_bin . " ../bbs/view_article.php gen_ex " . $row["AID"]);
 			if (!$buffer || file_put_contents("../gen_ex/static/" . $row["AID"] . ".html", $buffer) == false)
 			{
 				echo ("Open output error!");

@@ -14,17 +14,29 @@
 		)
 	);
 
-	if (isset($_SERVER["argc"]) && $_SERVER["argc"] == 2)
+	if (isset($_SERVER["argc"]) && $_SERVER["argc"] == 3)
 	{
 		$priv_check = false;
 
-		$id = intval($_SERVER["argv"][1]);
-		$ex = 1;
+		switch ($_SERVER["argv"][1])
+		{
+			case "gen_ex":
+				$theme_name = "gen_ex"; // CLI mode for gen_ex only
+				$ex = 1;
+				break;
+			case "export_xml":
+				$theme_name = "export_xml";
+				$ex = 0;
+				break;
+			default:
+				echo "Invalid usage";
+				exit(-1);
+		}
+
+		$id = intval($_SERVER["argv"][2]);
 		$trash = 0;
 		$page = 1;
 		$rpp = PHP_INT_MAX;
-
-		$theme_name = "gen_ex"; // CLI mode for gen_ex only
 	}
 	else
 	{
