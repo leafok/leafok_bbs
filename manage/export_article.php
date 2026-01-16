@@ -89,6 +89,7 @@
 				$ret = -3;
 				break;
 			}
+			echo $row["AID"] . "\n";
 		}
 
 		mysqli_free_result($rs);
@@ -104,7 +105,6 @@
 		}
 		$export_state["last_aid"] = $last_aid;
 
-		echo (json_encode($export_state)) . "\n";
 		file_put_contents($export_state_file, json_encode($export_state));
 	}
 
@@ -169,12 +169,20 @@
 		{
 			$export_file = $export_dir . "/" . $aid . ".xml";
 
-			if (file_exists($export_file) && unlink($export_file) == false)
+			$buffer = <<< HTML
+			<delete>
+				<id>{$aid}</id>
+			</delete>
+
+			HTML;
+
+			if (file_put_contents($export_dir . "/" . $aid . ".xml", $buffer) == false)
 			{
-				echo ("Delete " . $aid . ".xml error!");
+				echo ("Write " . $aid . ".xml error!");
 				$ret = -3;
 				break;
 			}
+			echo $aid . "\n";
 		}
 
 		if ($ret != 0)
@@ -191,6 +199,7 @@
 				$ret = -3;
 				break;
 			}
+			echo $aid . "\n";
 		}
 
 		if ($ret != 0)
@@ -207,7 +216,6 @@
 		}
 		$export_state["last_mid"] = $last_mid;
 
-		echo (json_encode($export_state)) . "\n";
 		file_put_contents($export_state_file, json_encode($export_state));
 	}
 

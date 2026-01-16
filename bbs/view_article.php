@@ -23,10 +23,12 @@
 			case "gen_ex":
 				$theme_name = "gen_ex"; // CLI mode for gen_ex only
 				$ex = 1;
+				$ip_mask_level = 2;
 				break;
 			case "export_xml":
 				$theme_name = "export_xml";
 				$ex = 0;
+				$ip_mask_level = 0;
 				break;
 			default:
 				echo "Invalid usage";
@@ -64,9 +66,9 @@
 		{
 			$rpp = PHP_INT_MAX;
 		}
-	}
 
-	$ip_mask_level = ($_SESSION["BBS_priv"]->checklevel(P_ADMIN_M | P_ADMIN_S) ? 1 : 2);
+		$ip_mask_level = ($_SESSION["BBS_priv"]->checklevel(P_ADMIN_M | P_ADMIN_S) ? 1 : 2);
+	}
 
 	$sql = "SELECT bbs.SID, TID, UID, bbs.title AS title, visible, excerption, ontop, `lock`,
 			gen_ex, view_count, reply_count, section_config.title AS s_title FROM bbs

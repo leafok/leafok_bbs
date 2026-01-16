@@ -14,6 +14,11 @@
 
 	header('Content-Type: text/xml; charset=UTF-8');
 
+	echo <<< HTML
+	<add>
+
+	HTML;
+
 	foreach ($result_set["data"]["articles"] as $article)
 	{
 		$username = htmlspecialchars($article["username"], ENT_HTML401, 'UTF-8');
@@ -30,24 +35,28 @@
 		}
 
 		echo <<< HTML
-		<doc>
-			<field name="id">{$article["aid"]}</field>
-			<field name="PostUserId">{$article["uid"]}</field>
-			<field name="PostUserName">{$username}</field>
-			<field name="PostUserNickName">{$nickname}</field>
-			<field name="Credit">{$article["exp"]}</field>
-			<field name="Photo">{$article["photo_path"]}</field>
-			<field name="TopicId">{$article["tid"]}</field>
-			<field name="SectionId">{$result_set["data"]["sid"]}</field>
-			<field name="ArticleId">{$article["aid"]}</field>
-			<field name="ArticleTitle">{$title}{$transship_info}</field>
-			<field name="ExpressionIcon">{$article["icon"]}</field>
-			<field name="PostDateTime">{$article["sub_dt"]->format("Y-m-d H:i:s (\U\T\C P)")}</field>
-			<field name="PostIP">{$article["sub_ip"]}</field>
-			<field name="Content"><![CDATA[{$content}]]></field>
-			<field name="Length">{$article["length"]}</field>
-			<field name="Visible">{$article["visible"]}</field>
-		</doc>
+			<doc>
+				<field name="id">{$article["aid"]}</field>
+				<field name="PostUserId">{$article["uid"]}</field>
+				<field name="PostUserName">{$username}</field>
+				<field name="PostUserNickName">{$nickname}</field>
+				<field name="Credit">{$article["exp"]}</field>
+				<field name="Photo">{$article["photo_path"]}</field>
+				<field name="TopicId">{$article["tid"]}</field>
+				<field name="SectionId">{$result_set["data"]["sid"]}</field>
+				<field name="ArticleId">{$article["aid"]}</field>
+				<field name="ArticleTitle">{$title}{$transship_info}</field>
+				<field name="ExpressionIcon">{$article["icon"]}</field>
+				<field name="PostDateTime">{$article["sub_dt"]->format("Y-m-d H:i:s")}</field>
+				<field name="PostIP">{$article["sub_ip"]}</field>
+				<field name="Content"><![CDATA[{$content}]]></field>
+				<field name="Length">{$article["length"]}</field>
+			</doc>
 
 		HTML;
 	}
+
+	echo <<< HTML
+	</add>
+
+	HTML;
