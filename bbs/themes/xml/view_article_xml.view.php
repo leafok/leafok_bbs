@@ -33,6 +33,7 @@
 		$username = htmlspecialchars($article["username"], ENT_HTML401, 'UTF-8');
 		$nickname = htmlspecialchars($article["nickname"], ENT_HTML401, 'UTF-8');
 		$level = user_level($article["exp"]);
+		$title = htmlspecialchars($article["title"], ENT_HTML401, 'UTF-8');
 		$content = LML($article["content"], 130);
 
 		$transship_info = "";
