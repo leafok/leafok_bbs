@@ -47,7 +47,7 @@
 				<field name="ArticleId">{$article["aid"]}</field>
 				<field name="ArticleTitle">{$title}{$transship_info}</field>
 				<field name="ExpressionIcon">{$article["icon"]}</field>
-				<field name="PostDateTime">{$article["sub_dt"]->format("Y-m-d H:i:s")}</field>
+				<field name="PostDateTime">{$article["sub_dt"]->setTimezone(new DateTimeZone("UTC"))->format("Y-m-d H:i:s")}</field>
 				<field name="PostIP">{$article["sub_ip"]}</field>
 				<field name="Content"><![CDATA[{$content}]]></field>
 				<field name="Length">{$article["length"]}</field>
