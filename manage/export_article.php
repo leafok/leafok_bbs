@@ -153,7 +153,9 @@
 				case 'S': // Restore article
 				case 'M': // Modify article
 				case 'T': // Move article
-				case 'Z': // Set article as trnasship
+				case 'E': // Set article as excerption
+				case 'O': // Unset article as excerption
+				case 'Z': // Set article as transship
 					unset($delete_aid_list[$aid]);
 					$export_aid_list[$aid] = true;
 					break;
