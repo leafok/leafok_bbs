@@ -51,6 +51,7 @@
 				<field name="PostIP">{$article["sub_ip"]}</field>
 				<field name="Content"><![CDATA[{$content}]]></field>
 				<field name="Length">{$article["length"]}</field>
+				<field name="Excerption">{$article["excerption"]}</field>
 			</doc>
 
 		HTML;
