@@ -52,6 +52,7 @@
 				<field name="Content"><![CDATA[{$content}]]></field>
 				<field name="Length">{$article["length"]}</field>
 				<field name="Excerption">{$article["excerption"]}</field>
+				<field name="Transship">{$article["transship"]}</field>
 			</doc>
 
 		HTML;
