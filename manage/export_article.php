@@ -195,13 +195,16 @@
 		foreach($export_aid_list as $aid => $dummy)
 		{
 			$buffer = shell_exec($PHP_bin . " ../bbs/view_article.php export_xml " . $aid);
-			if (!$buffer || ($buffer[0] == "<" && file_put_contents($export_dir . "/" . $aid . ".xml", $buffer) == false))
+			if ($buffer != false && $buffer[0] == "<")
 			{
-				echo ("Write " . $aid . ".xml error!");
-				$ret = -3;
-				break;
+				if (file_put_contents($export_dir . "/" . $aid . ".xml", $buffer) == false)
+				{
+					echo ("Write " . $aid . ".xml error!");
+					$ret = -3;
+					break;
+				}
+				echo $aid . "\n";
 			}
-			echo $aid . "\n";
 		}
 
 		if ($ret != 0)
