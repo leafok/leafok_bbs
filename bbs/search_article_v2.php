@@ -77,7 +77,7 @@
 		($username == "" ? "" : "PostUserName:($username) AND ") .
 		($nickname == "" ? "" : "PostUserNickName:($nickname) AND ") .
 		($ex == 1 ? "Excerption:1 AND " : "") .
-		($original ? "Eransship:0 AND " : "") .
+		($original ? "Transship:0 AND " : "") .
 		"PostDateTime:[" . $begin_dt->setTimezone(new DateTimeZone("UTC"))->format("Y-m-d\T00:00:00\Z") . " TO " .
 			$end_dt->setTimezone(new DateTimeZone("UTC"))->format("Y-m-d\T23:59:59\Z") . "] AND " .
 		($title == "" ? "" : "ArticleTitle:($title) AND ") .
