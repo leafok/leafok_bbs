@@ -3,7 +3,7 @@
 	(
 		"hostname" => "localhost",
 		"port"     => "8983",
-	    "login"    => "username",
+		"login"    => "username",
    		"password" => "password",
 		"auth"     => "HTTPBasicAuth",
 		"path"     => "/solr/lbbs",
