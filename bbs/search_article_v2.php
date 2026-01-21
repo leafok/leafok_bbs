@@ -1,5 +1,6 @@
 <?php
 	require_once "../lib/db_open.inc.php";
+	require_once "../conf/solr.conf.php";
 	require_once "./session_init.inc.php";
 	require_once "./theme.inc.php";
 
@@ -68,13 +69,6 @@
 	}
 
 	// Initialize Solr client
-	$solr_options = array
-	(
-		"hostname" => "localhost",
-		"port"     => "8983",
-		"path"     => "/solr/lbbs",
-	);
-
 	$solr_client = new SolrClient($solr_options);
 
 	$query_str = "" .
