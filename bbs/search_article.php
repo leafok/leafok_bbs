@@ -118,7 +118,7 @@
 		($favorite == 1 ? " INNER JOIN article_favorite ON IF(bbs.TID = 0, bbs.AID, bbs.TID) = article_favorite.AID AND article_favorite.UID = " . $_SESSION["BBS_uid"] : "") .
 		" WHERE SID in ($sid_list) AND " .
 		($reply ? "" : "TID = 0 AND ") .
-		($uid ? "UID = $uid AND ":"") .
+		($uid ? "UID = $uid AND " : "") .
 		"visible = " . ($trash ? 0 : 1) . " AND " .
 		($nickname == "" ? "" : "nickname LIKE '%" . mysqli_real_escape_string($db_conn, $nickname) . "%' AND ") .
 		($ex == 1 ? "excerption AND " : "") .
