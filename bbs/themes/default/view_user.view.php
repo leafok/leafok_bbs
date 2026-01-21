@@ -401,7 +401,7 @@ window.addEventListener("load", () => {
 					最近发表的主题：
 				</td>
 				<td>
-					<a class="s7" href="search_article.php?uid=<?= $result_set["data"]["uid"]; ?>" target=_blank>查看&gt;&gt;</a>
+					<a class="s7" href="search_article_v2.php?uid=<?= $result_set["data"]["uid"]; ?>" target=_blank>查看&gt;&gt;</a>
 				</td>
 			</tr>
 			<tr height="1" bgcolor="gray">

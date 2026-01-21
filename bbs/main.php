@@ -290,7 +290,7 @@ window.addEventListener("load", () => {
 					<td align="center" height="10"></td></tr>
 				<tr>
 					<td align="center">
-						<a class="s2" href="search_user.php" target=_blank>用户</a> <a class="s2" href="search_user.php?friend=1" target=_blank>好友</a> <a class="s2" href="search_form.php" target="_blank">文章</a>
+						<a class="s2" href="search_user.php" target=_blank>用户</a> <a class="s2" href="search_user.php?friend=1" target=_blank>好友</a> <a class="s2" href="search_form_v2.php" target="_blank">文章</a>
 					</td></tr>
 				<tr>
 					<td align="center" height="10"></td></tr>

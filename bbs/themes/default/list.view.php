@@ -415,7 +415,7 @@
 			<td width="35%">
 				<font color="#909090">查找文章</font>
 				<input type="text" id="search_text" name="search_text" value="{$result_set['data']['search_text']}" size="15"> <input type="image" src="images/search.gif" alt="按主题内容查找文章" border="0"></a>
-				<a class="s8" href="search_form.php?sid={$result_set['data']['sid']}" target="_blank" title="全功能检索">高级</a>&nbsp;
+				<a class="s8" href="search_form_v2.php?sid={$result_set['data']['sid']}" target="_blank" title="全功能检索">高级</a>&nbsp;
 			</td>
 			</form>
 			<td width="25%" align="right">
