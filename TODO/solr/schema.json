@@ -1,0 +1,115 @@
+{
+	"add-field-type": {
+		"name": "text_zh",
+		"class": "solr.TextField",
+		"positionIncrementGap": "100",
+		"indexAnalyzer": {
+			"tokenizer": {
+				"class": "org.apache.lucene.analysis.cn.smart.HMMChineseTokenizerFactory"
+			}
+		},
+		"queryAnalyzer": {
+			"tokenizer": {
+				"class": "org.apache.lucene.analysis.cn.smart.HMMChineseTokenizerFactory"
+			}
+		}
+	},
+	"add-field": [
+		{
+			"name": "PostUserId",
+			"type": "pint",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "PostUserName",
+			"type": "text_general",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "PostUserNickName",
+			"type": "text_zh",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "Credit",
+			"type": "pint",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "Photo",
+			"type": "text_general",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "TopicId",
+			"type": "pint",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "SectionId",
+			"type": "pint",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "ArticleId",
+			"type": "pint",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "ArticleTitle",
+			"type": "text_zh",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "ExpressionIcon",
+			"type": "pint",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "PostDateTime",
+			"type": "pdate",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "PostIP",
+			"type": "text_general",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "Content",
+			"type": "text_zh",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "Length",
+			"type": "plong",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "Excerption",
+			"type": "pint",
+			"indexed": true,
+			"stored": true
+		},
+		{
+			"name": "Transship",
+			"type": "pint",
+			"indexed": true,
+			"stored": true
+		}
+	]
+}
