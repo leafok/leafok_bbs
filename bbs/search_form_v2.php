@@ -48,6 +48,7 @@ window.addEventListener("load", () => {
 			</td>
 			<td width="65%">
 				支持通配符*，多个关键词用空格分隔，逻辑与用AND连接。
+				<a class="s2" href="search_form.php?sid=<?=$sid?>">旧版高级查找</a>
 			</td>
 			<td width="10%">
 			</td>

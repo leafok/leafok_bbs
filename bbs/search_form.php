@@ -47,6 +47,7 @@ window.addEventListener("load", () => {
 			<td width="10%">
 			</td>
 			<td width="65%">
+				建议使用更快更强的<a class="s2" href="search_form_v2.php?sid=<?=$sid?>">新版高级查找</a>
 			</td>
 			<td width="10%">
 			</td>
