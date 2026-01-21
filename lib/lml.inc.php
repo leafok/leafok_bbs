@@ -332,6 +332,10 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 			$line_width += $tab_width;
 			continue;
 		}
+		else if (!$quote_mode && $str_in[$i] == "\033")
+		{
+			continue; // Skip control characters while not in quote mode
+		}
 
 		if (!$lml_tag_disabled && $str_in[$i] == "[")
 		{
