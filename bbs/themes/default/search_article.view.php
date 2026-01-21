@@ -223,7 +223,7 @@
 		</tr>
 		<tr valign="top">
 			<td width="40%" align="left" style="color: #909090">
-			<form action="search_article.php" method="GET" id="search_form" name="search_form">
+			<form action="" method="GET" id="search_form" name="search_form">
 				<a name="cp"></a>
 				<input type="hidden" id="uid" name="uid" value="{$result_set['data']['uid']}">
 				<input type="hidden" id="nickname" name="nickname" value="{$result_set['data']['nickname']}">
