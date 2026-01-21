@@ -74,6 +74,7 @@
 	$query_str = "" .
 		($sid_list == "(-1)" ? "" : "SectionId:($sid_list) AND ") .
 		($reply ? "" : "TopicId:0 AND ") .
+		($uid == 0 ? "" : "PostUserId:($uid) AND ") .
 		($username == "" ? "" : "PostUserName:($username) AND ") .
 		($nickname == "" ? "" : "PostUserNickName:($nickname) AND ") .
 		($ex == 1 ? "Excerption:1 AND " : "") .
