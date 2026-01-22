@@ -32,14 +32,10 @@
 
 **功能说明：**
 - 基于Web的文章浏览、发表、查找等基本功能和其它各种实用功能
-- **高级搜索功能：**
-  - 支持中文的Solr全文搜索
-  - 按用户ID（UID）、用户名或昵称搜索
-  - 高级搜索v2，支持按日期范围、版块和内容类型筛选
-  - 支持搜索原帖与回复
-  - 仅搜索文摘文章
 - 支持多类别多版块，各版块分设讨论区、文摘区、精华区
 - 提供全面的版主管理支持
+- **高级搜索功能：**
+  - 支持中文的Solr全文搜索
 - **现代架构：**
   - 重构的轻量级标记语言（LML）渲染器，性能更优
   - 支持用户时区，本地化日期/时间显示
@@ -70,9 +66,11 @@ composer install --prefer-dist --no-scripts --no-progress
   - 站点信息：编辑 `conf/site.conf.php`
   - 数据库连接：编辑 `conf/db_conn.conf.php`
   - 邮件发送：编辑 `conf/smtp.conf.php`（支持SMTP和本地sendmail两种方式）
-  - **Solr搜索**（可选）：如需使用Solr进行高级搜索，编辑 `conf/solr.conf.php`
-    - 默认配置假设Solr运行在 `localhost:8983`，核心为 `lbbs`
-    - 根据需要更新主机名、端口、认证信息和路径
+- **Solr搜索**（可选）：如需使用Solr进行高级搜索，编辑 `conf/solr.conf.php`
+  - 默认配置假设Solr运行在 `localhost:8983`，核心为 `lbbs`
+  - 根据需要更新主机名、端口、认证信息和路径
+  - 将 `TODO/solr/schema.json` 中的架构导入到核心 `lbbs`
+  - 使用PHP扩展安装工具PIE安装pecl/solr扩展
 
 ### 4. 站点个性化配置
 - 修改 `lib/common.inc.php` 文件
@@ -159,7 +157,7 @@ docker compose exec web bash
 - 上传的文件和缓存存储在挂载的主机目录中
 
 ## 版权信息
-版权所有 (C) 2004-2026 Leaflet <leaflet@leafok.com>
+版权所有 (C) 2001-2026 Leaflet <leaflet@leafok.com>
 
 ## 授权许可
 本程序是自由软件；您可以按照自由软件基金会发布的[GNU通用发布许可](LICENSE)的第三版或后续版本的条款，分发和/或修改本程序。

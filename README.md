@@ -32,14 +32,10 @@ Chinese version: [README.zh_CN.md](README.zh_CN.md)
 
 **Features:**
 - Web-based article browsing, posting, searching, and other basic functions
-- **Advanced Search Capabilities:**
-  - Solr-powered full-text search with Chinese language support
-  - Search by user ID (UID), username, or nickname
-  - Advanced search v2 with filtering by date range, section, and content type
-  - Support for searching original posts vs. replies
-  - Filter by excerpted articles only
 - Support for multiple categories and sections, each with discussion areas, digest areas, and featured areas
 - Comprehensive moderator management support
+- **Advanced Search Capabilities:**
+  - Solr-powered full-text search with Chinese language support
 - **Modern Architecture:**
   - Refactored Lightweight Markup Language (LML) renderer with improved performance
   - User timezone support for localized date/time display
@@ -70,9 +66,11 @@ composer install --prefer-dist --no-scripts --no-progress
   - Site information: Edit `conf/site.conf.php`
   - Database connection: Edit `conf/db_conn.conf.php`
   - Email sending: Edit `conf/smtp.conf.php` (supports both SMTP and local sendmail)
-  - **Solr search** (optional): Edit `conf/solr.conf.php` if using Solr for advanced search features
-    - Default configuration assumes Solr running on `localhost:8983` with core `lbbs`
-    - Update hostname, port, authentication, and path as needed
+- **Solr search** (optional): Edit `conf/solr.conf.php` if using Solr for advanced search features
+  - Default configuration assumes Solr running on `localhost:8983` with core `lbbs`
+  - Update hostname, port, authentication, and path as needed
+  - Import schema from `TODO/solr/schema.json` into core `lbbs`
+  - Install pecl/solr extension with PIE
 
 ### 4. Site Customization
 - Modify `lib/common.inc.php` for site-specific configurations
@@ -159,7 +157,7 @@ docker compose exec web bash
 - Uploaded files and cache are stored in mounted host directories
 
 ## Copyright Information
-Copyright (C) 2004-2026 Leaflet <leaflet@leafok.com>
+Copyright (C) 2001-2026 Leaflet <leaflet@leafok.com>
 
 ## License
 This program is free software; you can redistribute it and/or modify it under the terms of the [GNU General Public License](LICENSE) as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
