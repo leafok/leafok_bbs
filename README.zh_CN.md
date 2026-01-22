@@ -32,8 +32,18 @@
 
 **功能说明：**
 - 基于Web的文章浏览、发表、查找等基本功能和其它各种实用功能
+- **高级搜索功能：**
+  - 支持中文的Solr全文搜索
+  - 按用户ID（UID）、用户名或昵称搜索
+  - 高级搜索v2，支持按日期范围、版块和内容类型筛选
+  - 支持搜索原帖与回复
+  - 仅搜索文摘文章
 - 支持多类别多版块，各版块分设讨论区、文摘区、精华区
 - 提供全面的版主管理支持
+- **现代架构：**
+  - 重构的轻量级标记语言（LML）渲染器，性能更优
+  - 支持用户时区，本地化日期/时间显示
+  - 主要功能支持主题定制
 - 可选Telnet方式的登陆访问、文章查看、游戏等功能（详见[lbbs](https://github.com/leafok/lbbs)）
 
 **演示站点：** https://fenglin.info/bbs/
@@ -60,6 +70,9 @@ composer install --prefer-dist --no-scripts --no-progress
   - 站点信息：编辑 `conf/site.conf.php`
   - 数据库连接：编辑 `conf/db_conn.conf.php`
   - 邮件发送：编辑 `conf/smtp.conf.php`（支持SMTP和本地sendmail两种方式）
+  - **Solr搜索**（可选）：如需使用Solr进行高级搜索，编辑 `conf/solr.conf.php`
+    - 默认配置假设Solr运行在 `localhost:8983`，核心为 `lbbs`
+    - 根据需要更新主机名、端口、认证信息和路径
 
 ### 4. 站点个性化配置
 - 修改 `lib/common.inc.php` 文件

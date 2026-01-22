@@ -32,8 +32,18 @@ Chinese version: [README.zh_CN.md](README.zh_CN.md)
 
 **Features:**
 - Web-based article browsing, posting, searching, and other basic functions
+- **Advanced Search Capabilities:**
+  - Solr-powered full-text search with Chinese language support
+  - Search by user ID (UID), username, or nickname
+  - Advanced search v2 with filtering by date range, section, and content type
+  - Support for searching original posts vs. replies
+  - Filter by excerpted articles only
 - Support for multiple categories and sections, each with discussion areas, digest areas, and featured areas
 - Comprehensive moderator management support
+- **Modern Architecture:**
+  - Refactored Lightweight Markup Language (LML) renderer with improved performance
+  - User timezone support for localized date/time display
+  - Theme support for major features
 - Optional Telnet access for login, article viewing, games, etc. (see [lbbs](https://github.com/leafok/lbbs) for details)
 
 **Demo site:** https://fenglin.info/bbs/
@@ -60,6 +70,9 @@ composer install --prefer-dist --no-scripts --no-progress
   - Site information: Edit `conf/site.conf.php`
   - Database connection: Edit `conf/db_conn.conf.php`
   - Email sending: Edit `conf/smtp.conf.php` (supports both SMTP and local sendmail)
+  - **Solr search** (optional): Edit `conf/solr.conf.php` if using Solr for advanced search features
+    - Default configuration assumes Solr running on `localhost:8983` with core `lbbs`
+    - Update hostname, port, authentication, and path as needed
 
 ### 4. Site Customization
 - Modify `lib/common.inc.php` for site-specific configurations
