@@ -79,10 +79,12 @@ composer install --prefer-dist --no-scripts --no-progress
 - 创建目录（如果不存在）：
   - `bbs/cache`
   - `bbs/upload`
+  - `export_xml`
   - `stat`
 - 确保Web服务器运行账户对以下目录有写权限：
   - `bbs/cache`
   - `bbs/upload`
+  - `export_xml`
   - `gen_ex`
   - `stat`
 

@@ -79,10 +79,12 @@ composer install --prefer-dist --no-scripts --no-progress
 - Create directories (if they don't exist):
   - `bbs/cache`
   - `bbs/upload`
+  - `export_xml`
   - `stat`
 - Ensure the web server user has write permissions for:
   - `bbs/cache`
   - `bbs/upload`
+  - `export_xml`
   - `gen_ex`
   - `stat`
 
