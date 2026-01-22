@@ -68,6 +68,16 @@
 		mysqli_free_result($rs);
 	}
 
+	if (!in_array($rpp, $BBS_list_rpp_options))
+	{
+		$rpp = $BBS_list_rpp_options[0];
+	}
+
+	if ($page <= 0)
+	{
+		$page = 1;
+	}
+
 	// Initialize Solr client
 	$solr_client = new SolrClient($solr_options);
 
@@ -86,76 +96,6 @@
 		"*:*";
 
 	// Query count of articles
-	$solr_query = new SolrQuery();
-	$solr_query->setQuery($query_str);
-	$solr_query->addField("ArticleId");
-	$solr_query->addSortField("PostDateTime", SolrQuery::ORDER_DESC);
-	try
-	{
-		$solr_res = $solr_client->query($solr_query);
-	}
-	catch (Exception $e)
-	{
-		$result_set["return"]["code"] = -3;
-		$result_set["return"]["message"] = "Solr query error";
-
-		exit(json_encode($result_set));
-	}
-	$solr_obj = $solr_res->getResponse();
-
-	if ($solr_obj->responseHeader->status != 0)
-	{
-		$result_set["return"]["code"] = -3;
-		$result_set["return"]["message"] = "Solr query error: " . $solr_obj->responseHeader->status;
-
-		exit(json_encode($result_set));
-	}
-
-	$toa = $solr_obj->response->numFound;
-
-	unset($solr_query);
-
-	if (!in_array($rpp, $BBS_list_rpp_options))
-	{
-		$rpp = $BBS_list_rpp_options[0];
-	}
-
-	$page_total = ceil($toa / $rpp);
-	if ($page > $page_total)
-	{
-		$page = $page_total;
-	}
-
-	if ($page <= 0)
-	{
-		$page = 1;
-	}
-
-	// Fill up result data
-	$result_set["data"] = array(
-		"uid" => $uid,
-		"sid" => $sid,
-		"ex" => $ex,
-		"reply" => $reply,
-		"use_nick" => $use_nick,
-		"original" => $original,
-		"username" => $username,
-		"nickname" => $nickname,
-		"title" => $title,
-		"content" => $content,
-		"begin_dt" => $begin_dt,
-		"end_dt" => $end_dt,
-		"favorite" => 0,
-		"trash" => 0,
-		"toa" => $toa,
-		"page" => $page,
-		"rpp" => $rpp,
-		"page_total" => $page_total,
-
-		"articles" => array(),
-	);
-
-	// Query article IDs
 	$solr_query = new SolrQuery();
 	$solr_query->setQuery($query_str);
 	$solr_query->addField("ArticleId");
@@ -183,8 +123,33 @@
 		exit(json_encode($result_set));
 	}
 
-	// print_r($solr_obj);
-	// exit();
+	$toa = $solr_obj->response->numFound;
+
+	$page_total = ceil($toa / $rpp);
+
+	// Fill up result data
+	$result_set["data"] = array(
+		"uid" => $uid,
+		"sid" => $sid,
+		"ex" => $ex,
+		"reply" => $reply,
+		"use_nick" => $use_nick,
+		"original" => $original,
+		"username" => $username,
+		"nickname" => $nickname,
+		"title" => $title,
+		"content" => $content,
+		"begin_dt" => $begin_dt,
+		"end_dt" => $end_dt,
+		"favorite" => 0,
+		"trash" => 0,
+		"toa" => $toa,
+		"page" => $page,
+		"rpp" => $rpp,
+		"page_total" => $page_total,
+
+		"articles" => array(),
+	);
 
 	$aid_list = "-1";
 
@@ -196,6 +161,7 @@
 		}
 	}
 
+	unset($solr_res);
 	unset($solr_query);
 	unset($solr_client);
 
