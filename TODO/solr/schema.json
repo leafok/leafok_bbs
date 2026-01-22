@@ -6,11 +6,17 @@
 		"indexAnalyzer": {
 			"tokenizer": {
 				"class": "org.apache.lucene.analysis.cn.smart.HMMChineseTokenizerFactory"
+			},
+			"filter": {
+				"class": "solr.LowerCaseFilterFactory"
 			}
 		},
 		"queryAnalyzer": {
 			"tokenizer": {
 				"class": "org.apache.lucene.analysis.cn.smart.HMMChineseTokenizerFactory"
+			},
+			"filter": {
+				"class": "solr.LowerCaseFilterFactory"
 			}
 		}
 	},
