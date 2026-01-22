@@ -5,6 +5,7 @@ Chinese version: [CHANGELOG.zh_CN.md](CHANGELOG.zh_CN.md)
 ## January 2026
 
 - Docker container deployment support
+- Integrate with Apache Solr to support full-text advanced search
 
 ## November 2025
 
