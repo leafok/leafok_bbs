@@ -18,8 +18,6 @@
   - [从源代码构建](#从源代码构建)
   - [使用预构建镜像](#使用预构建镜像)
   - [Docker配置](#docker配置)
-  - [Docker Compose服务](#docker-compose服务)
-  - [常用Docker命令](#常用docker命令)
   - [持久化数据](#持久化数据)
 - [版权信息](#版权信息)
 - [授权许可](#授权许可)
@@ -133,26 +131,6 @@ docker compose up -d
    - 将文件从 `TODO/conf/` 复制到 `conf/` 目录
    - 根据需要编辑配置文件
    - 重启容器：`docker compose restart`
-
-### Docker Compose服务
-- **web**: Apache HTTP 服务器与 PHP 8.2
-- **db**: MySQL 8.4 数据库
-- **phpmyadmin**: 数据库管理界面（可选，在 `http://localhost:8081` 可用）
-
-### 常用Docker命令
-```bash
-# 查看日志
-docker compose logs -f
-
-# 停止容器
-docker compose down
-
-# 重新构建并重启
-docker compose up --build -d
-
-# 进入容器 shell
-docker compose exec web bash
-```
 
 ### 持久化数据
 - 数据库数据存储在 Docker 卷中（`leafok_bbs_db_data`）
