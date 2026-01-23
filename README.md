@@ -18,8 +18,6 @@ Chinese version: [README.zh_CN.md](README.zh_CN.md)
   - [Build from Source](#build-from-source)
   - [Using Pre-built Images](#using-pre-built-images)
   - [Configuration for Docker](#configuration-for-docker)
-  - [Docker Compose Services](#docker-compose-services)
-  - [Common Docker Commands](#common-docker-commands)
   - [Persistent Data](#persistent-data)
 - [Copyright Information](#copyright-information)
 - [License](#license)
@@ -133,26 +131,6 @@ docker compose up -d
    - Copy files from `TODO/conf/` to `conf/` directory
    - Edit the configuration files as needed
    - Restart the container: `docker compose restart`
-
-### Docker Compose Services
-- **web**: Apache HTTP Server with PHP 8.2
-- **db**: MySQL 8.4 database
-- **phpmyadmin**: Database management interface (optional, available at `http://localhost:8081`)
-
-### Common Docker Commands
-```bash
-# View logs
-docker compose logs -f
-
-# Stop containers
-docker compose down
-
-# Rebuild and restart
-docker compose up --build -d
-
-# Access container shell
-docker compose exec web bash
-```
 
 ### Persistent Data
 - Database data is stored in a Docker volume (`leafok_bbs_db_data`)
