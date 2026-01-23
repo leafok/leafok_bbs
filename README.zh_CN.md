@@ -46,7 +46,7 @@
 
 ### 1. 前置条件和所需库
 - **PHP 8.2+** 和 **MySQL 8.4+** 已安装
-- 使用包管理器安装 Composer（例如 `apt`、`yum`，或从 [getcomposer.org](https://getcomposer.org/) 下载）
+- 使用包管理器安装 Composer（例如 `apt`、`yum`）
 - 在项目根目录运行以下命令：
 ```bash
 composer install --prefer-dist --no-scripts --no-progress
