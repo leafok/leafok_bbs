@@ -46,7 +46,7 @@ Chinese version: [README.zh_CN.md](README.zh_CN.md)
 
 ### 1. Prerequisites and Required Libraries
 - **PHP 8.2+** and **MySQL 8.4+** installed
-- Install Composer using your package manager (e.g., `apt`, `yum`, or from [getcomposer.org](https://getcomposer.org/))
+- Install Composer using your package manager (e.g., `apt`, `yum`)
 - Run the following command in the project root directory:
 ```bash
 composer install --prefer-dist --no-scripts --no-progress
