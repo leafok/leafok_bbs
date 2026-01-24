@@ -18,11 +18,29 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
+
+    - name: Extract Docker metadata (apache)
+      id: meta-apache
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.APACHE_IMAGE }}
+
+    - name: Extract Docker metadata (php)
+      id: meta-php
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.PHP_IMAGE }}
 
     - name: Build the Docker image (apache)
       id: build-apache
@@ -32,9 +50,11 @@ jobs:
         context: .
         file: Dockerfile/dockerfile.apache
         tags: |
-          ${{ env.APACHE_IMAGE }}:dev
-        labels: ${{ steps.meta.outputs.labels }}
-
+          ${{ steps.meta-apache.outputs.tags }}
+        labels: ${{ steps.meta-apache.outputs.labels }}
+        cache-from: type=gha # Pull cache from GitHub Actions cache
+        cache-to: type=gha,mode=max # Push cache to GitHub Actions cache
+        
     - name: Build the Docker image (php)
       id: build-php
       uses: docker/build-push-action@v5
@@ -43,5 +63,8 @@ jobs:
         context: .
         file: Dockerfile/dockerfile.php
         tags: |
-          ${{ env.APACHE_IMAGE }}:dev
-        labels: ${{ steps.meta.outputs.labels }}
+          ${{ steps.meta-php.outputs.tags }}
+        labels: ${{ steps.meta-php.outputs.labels }}
+        cache-from: type=gha # Pull cache from GitHub Actions cache
+        cache-to: type=gha,mode=max # Push cache to GitHub Actions cache
+        
