@@ -43,6 +43,18 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Extract Docker metadata (apache)
+        id: meta-apache
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.APACHE_IMAGE }}
+  
+      - name: Extract Docker metadata (php)
+        id: meta-php
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.PHP_IMAGE }}
+
       - name: Build and push Docker image (apache)
         id: push-apache
         uses: docker/build-push-action@v5
@@ -54,7 +66,10 @@ jobs:
           tags: |
             ${{ env.APACHE_IMAGE }}:${{ github.ref_name }}
             ${{ env.APACHE_IMAGE }}:latest
-          labels: ${{ steps.meta.outputs.labels }}
+            ${{ steps.meta-apache.outputs.tags }}
+          labels: ${{ steps.meta-apache.outputs.labels }}
+          cache-from: type=gha # Pull cache from GitHub Actions cache
+          cache-to: type=gha,mode=max # Push cache to GitHub Actions cache
 
       - name: Build and push Docker image (php)
         id: push-php
@@ -67,4 +82,7 @@ jobs:
           tags: |
             ${{ env.PHP_IMAGE }}:${{ github.ref_name }}
             ${{ env.PHP_IMAGE }}:latest
-          labels: ${{ steps.meta.outputs.labels }}
+            ${{ steps.meta-php.outputs.tags }}
+          labels: ${{ steps.meta-php.outputs.labels }}
+          cache-from: type=gha # Pull cache from GitHub Actions cache
+          cache-to: type=gha,mode=max # Push cache to GitHub Actions cache
