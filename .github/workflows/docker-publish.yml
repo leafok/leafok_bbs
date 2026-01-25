@@ -67,6 +67,8 @@ jobs:
           context: .
           file: ./Dockerfile/dockerfile.apache
           push: true
+          provenance: true
+          sbom: true
           tags: |
             ${{ env.APACHE_IMAGE }}:${{ github.ref_name }}
             ${{ env.APACHE_IMAGE }}:latest
@@ -83,6 +85,8 @@ jobs:
           context: .
           file: ./Dockerfile/dockerfile.php
           push: true
+          provenance: true
+          sbom: true
           tags: |
             ${{ env.PHP_IMAGE }}:${{ github.ref_name }}
             ${{ env.PHP_IMAGE }}:latest
