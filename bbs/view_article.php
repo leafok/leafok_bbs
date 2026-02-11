@@ -400,14 +400,14 @@
 		exit(json_encode($result_set));
 	}
 
-	$aid_list = "-1";
-	$cid_list = "-1";
+	$aid_list = array(-1);
+	$cid_list = array(-1);
 	$aid_array = array();
 
 	while($row = mysqli_fetch_array($rs))
 	{
-		$aid_list .= (", " . $row["AID"]);
-		$cid_list .= (", " . $row["CID"]);
+		array_push($aid_list, $row["AID"]);
+		array_push($cid_list, $row["CID"]);
 
 		if ($_SESSION["BBS_uid"] > 0 && (new DateTimeImmutable("-" . $BBS_new_article_period . " day")) < (new DateTimeImmutable($row["sub_dt"])))
 		{
@@ -415,7 +415,9 @@
 		}
 	}
 
-	$sql = "SELECT * FROM bbs_content WHERE CID IN ($cid_list) ORDER BY AID";
+	$sql = "SELECT * FROM bbs_content WHERE CID IN (" .
+			implode(",", $cid_list) .
+			") ORDER BY AID";
 	$rs_content = mysqli_query($db_conn, $sql);
 	if ($rs_content == false)
 	{
@@ -427,8 +429,9 @@
 	}
 	$row_content = mysqli_fetch_array($rs_content);
 
-	$sql = "SELECT * FROM upload_file WHERE ref_AID IN ($aid_list)
-			AND deleted = 0 AND deny = 0
+	$sql = "SELECT * FROM upload_file WHERE ref_AID IN (" .
+			implode(",", $aid_list) .
+			") AND deleted = 0 AND deny = 0
 			ORDER BY ref_AID, AID";
 	$rs_attachment = mysqli_query($db_conn, $sql);
 	if ($rs_attachment == false)
@@ -445,7 +448,7 @@
 
 	$author_list = array();
 
-	while($row = mysqli_fetch_array($rs))
+	while ($row = mysqli_fetch_array($rs))
 	{
 		while ($row_content && $row["AID"] > $row_content["AID"])
 		{
@@ -503,16 +506,18 @@
 	mysqli_free_result($rs_content);
 	mysqli_free_result($rs);
 
-	$uid_list = "-1";
+	$uid_list = array(-1);
 	foreach ($author_list as $uid => $status)
 	{
-		$uid_list .= (", " . $uid);
+		array_push($uid_list, $uid);
 	}
 	unset($author_list);
 
 	$author_list = array();
 
-	$sql = "SELECT UID FROM user_list WHERE UID IN ($uid_list) AND enable";
+	$sql = "SELECT UID FROM user_list WHERE UID IN (" .
+			implode(",", $uid_list) .
+			") AND enable";
 
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)
@@ -535,14 +540,15 @@
 
 	if ($_SESSION["BBS_uid"] > 0)
 	{
-		$aid_list = "-1";
+		$aid_list = array(-1);
 		foreach ($aid_array as $k => $v)
 		{
-			$aid_list .= ", $k";
+			array_push($aid_list, $k);
 		}
 
-		$sql = "SELECT AID FROM view_article_log
-				WHERE AID IN ($aid_list) AND UID = " . $_SESSION["BBS_uid"];
+		$sql = "SELECT AID FROM view_article_log WHERE AID IN (" .
+				implode(",", $aid_list) .
+				") AND UID = " . $_SESSION["BBS_uid"];
 
 		$rs = mysqli_query($db_conn, $sql);
 		if ($rs == false)

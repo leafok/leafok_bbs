@@ -124,17 +124,19 @@
 			exit();
 		}
 
-		$aid_list = "-1";
+		$aid_list = array(-1);
 		while ($row_topic = mysqli_fetch_array($rs_topic))
 		{
-			$aid_list .= (", " . $row_topic["AID"]);
+			array_push($aid_list, $row_topic["AID"]);
 		}
 		mysqli_free_result($rs_topic);
 
-		if ($aid_list != "-1")
+		if (count($aid_list) > 1)
 		{
+			$aid_list_str = implode(",", $aid_list);
+
 			// Reserve excerption reply as topic
-			$sql = "UPDATE bbs SET TID = 0 WHERE TID IN ($aid_list) AND excerption = 1";
+			$sql = "UPDATE bbs SET TID = 0 WHERE TID IN ($aid_list_str) AND excerption = 1";
 			$ret = mysqli_query($db_conn, $sql);
 			if ($ret == false)
 			{
@@ -145,7 +147,8 @@
 			echo ("Convert " . mysqli_affected_rows($db_conn) . " replies to topics in section [" .
 					$row["SID"] . "]<br />\n");
 
-			$sql = "UPDATE bbs SET visible = 0, reply_count = 0 WHERE AID IN ($aid_list) OR TID IN ($aid_list)";
+			$sql = "UPDATE bbs SET visible = 0, reply_count = 0
+					WHERE AID IN ($aid_list_str) OR TID IN ($aid_list_str)";
 			$ret = mysqli_query($db_conn, $sql);
 			if ($ret == false)
 			{
@@ -172,16 +175,18 @@
 		exit();
 	}
 
-	$aid_list = "-1";
+	$aid_list = array(-1);
 	while ($row = mysqli_fetch_array($rs))
 	{
-		$aid_list .= (", " . $row["AID"]);
+		array_push($aid_list, $row["AID"]);
 	}
 	mysqli_free_result($rs);
 
-	if ($aid_list != "-1")
+	if (count($aid_list) > 1)
 	{
-		$sql = "DELETE FROM bbs_content WHERE AID IN ($aid_list)";
+		$aid_list_str = implode(",", $aid_list);
+
+		$sql = "DELETE FROM bbs_content WHERE AID IN ($aid_list_str)";
 		$rs = mysqli_query($db_conn, $sql);
 		if ($rs == false)
 		{
@@ -189,7 +194,7 @@
 			exit();
 		}
 
-		$sql = "DELETE FROM bbs WHERE AID IN ($aid_list)";
+		$sql = "DELETE FROM bbs WHERE AID IN ($aid_list_str)";
 		$rs = mysqli_query($db_conn, $sql);
 		if ($rs == false)
 		{
@@ -211,16 +216,18 @@
 		exit();
 	}
 
-	$upload_reserve_list="-1";
+	$upload_reserve_list = array(-1);
 	$file_reserved = array();
 	while ($row = mysqli_fetch_array($rs))
 	{
-		$upload_reserve_list .= (", " . $row["AID"]);
+		array_push($upload_reserve_list, $row["AID"]);
 		array_push($file_reserved, $row["AID"]);
 	}
 	mysqli_free_result($rs);
 
-	$sql = "UPDATE upload_file SET deleted = 1 WHERE AID NOT IN ($upload_reserve_list)";
+	$sql = "UPDATE upload_file SET deleted = 1 WHERE AID NOT IN (" .
+			implode(",", $upload_reserve_list) .
+			")";
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)
 	{
@@ -272,14 +279,15 @@
 	}
 
 	//Purge dead ID
-	$life_list = "-1";
+	$life_list = array(-1);
 	foreach ($BBS_life_immortal as $life)
 	{
-		$life_list .= (", " . $life);
+		array_push($life_list, $life);
 	}
 
-	$sql = "SELECT UID FROM user_pubinfo WHERE life NOT IN ($life_list)
-			AND last_login_dt < SUBDATE(NOW(), INTERVAL (life + $BBS_user_purge_duration) DAY)
+	$sql = "SELECT UID FROM user_pubinfo WHERE life NOT IN (" .
+			implode(",", $life_list) .
+			") AND last_login_dt < SUBDATE(NOW(), INTERVAL (life + $BBS_user_purge_duration) DAY)
 			ORDER BY UID";
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)
@@ -288,16 +296,18 @@
 		exit();
 	}
 
-	$uid_list = "-1";
+	$uid_list = array(-1);
 	while ($row = mysqli_fetch_array($rs))
 	{
-		$uid_list .= (", " . $row["UID"]);
+		array_push($uid_list, $row["UID"]);
 	}
 	mysqli_free_result($rs);
 
-	if ($uid_list != "-1")
+	if (count($uid_list) > 1)
 	{
-		echo ("Purge UID in list ($uid_list)<br />\n");
+		$uid_list_str = implode(",", $uid_list);
+
+		echo ("Purge UID in list ($uid_list_str)<br />\n");
 
 		$user_db = array(
 			"article_favorite" => "UID",
@@ -316,7 +326,7 @@
 
 		foreach($user_db as $table => $column)
 		{
-			$sql = "DELETE from $table WHERE $column IN ($uid_list)";
+			$sql = "DELETE FROM $table WHERE $column IN ($uid_list_str)";
 
 			$rs = mysqli_query($db_conn, $sql);
 			if ($rs == false)

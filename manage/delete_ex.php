@@ -32,7 +32,7 @@
 	<body>
 		<p>
 <?php
-	$sid_list = "-1";
+	$sid_list = array(-1);
 
 	while ($row = mysqli_fetch_array($rs))
 	{
@@ -41,16 +41,17 @@
 		{
 			delTree("../gen_ex/" . $row["SID"]);
 		}
-		$sid_list .= (", " . $row["SID"]);
+		array_push($sid_list, $row["SID"]);
 		echo ("OK<br />\n");
 		flush();
 	}
 
 	mysqli_free_result($rs);
 
+	$sid_list_str = implode(",", $sid_list);
+
 	$sql = "UPDATE bbs SET static = 0
-			WHERE SID IN ($sid_list) AND TID = 0
-			AND visible AND gen_ex";
+			WHERE SID IN ($sid_list_str) AND TID = 0 AND visible AND gen_ex";
 
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)
@@ -65,7 +66,8 @@
 		unlink($file);
 	}
 
-	$sql = "UPDATE section_config SET ex_update = 1, ex_menu_update = 1 WHERE SID IN ($sid_list)";
+	$sql = "UPDATE section_config SET ex_update = 1, ex_menu_update = 1
+			WHERE SID IN ($sid_list_str)";
 
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)

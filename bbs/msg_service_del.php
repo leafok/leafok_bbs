@@ -26,13 +26,13 @@
 		exit(json_encode($result_set));
 	}
 
-	$msg_id_list = "-1";
+	$msg_id_list = array(-1);
 	foreach($msg_id as $mid)
 	{
-		$msg_id_list .= (", " . $mid);
+		array_push($msg_id_list, $mid);
 	}
 
-	if ($msg_id_list == "-1")
+	if (count($msg_id_list) == 1)
 	{
 		$result_set["return"]["code"] = -1;
 		$result_set["return"]["message"] = "没有选中消息";
@@ -40,12 +40,11 @@
 		mysqli_close($db_conn);
 		exit(json_encode($result_set));
 	}
-
-	if ($msg_id_list != "-1")
+	else
 	{
-		$sql = "UPDATE bbs_msg SET " . ($sent ? "s_deleted" : "deleted") .
-				" = 1 WHERE MID IN ($msg_id_list) AND " .
-				($sent ? "fromUID" : "toUID") . " = " . $_SESSION["BBS_uid"] .
+		$sql = "UPDATE bbs_msg SET " . ($sent ? "s_deleted" : "deleted") . " = 1 WHERE MID IN (" .
+				implode(",", $msg_id_list) .
+				") AND " . ($sent ? "fromUID" : "toUID") . " = " . $_SESSION["BBS_uid"] .
 				" AND " . ($sent ? "s_deleted" : "deleted") . " = 0";
 
 		$rs = mysqli_query($db_conn, $sql);

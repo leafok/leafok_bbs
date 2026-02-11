@@ -205,13 +205,13 @@
 
 	if ($_SESSION["BBS_uid"] > 0)
 	{
-		$aid_list = "-1";
+		$aid_list = array(-1);
 
 		while ($row = mysqli_fetch_array($rs))
 		{
 			if ((new DateTimeImmutable("-" . $BBS_new_article_period . " day")) < (new DateTimeImmutable($row["sub_dt"])))
 			{
-				$aid_list .= (", " . $row["AID"]);
+				array_push($aid_list, $row["AID"]);
 			}
 			else
 			{
@@ -221,9 +221,11 @@
 
 		mysqli_data_seek($rs, 0);
 
-		if ($aid_list != "-1")
+		if (count($aid_list) > 1)
 		{
-			$sql = "SELECT AID FROM view_article_log WHERE AID IN ($aid_list) AND UID = " . $_SESSION["BBS_uid"];
+			$sql = "SELECT AID FROM view_article_log WHERE AID IN (" .
+					implode(",", $aid_list) .
+					") AND UID = " . $_SESSION["BBS_uid"];
 
 			$rs_view = mysqli_query($db_conn, $sql);
 			if ($rs_view == false)
@@ -300,16 +302,18 @@
 	}
 	mysqli_free_result($rs);
 
-	$uid_list = "-1";
+	$uid_list = array(-1);
 	foreach ($author_list as $uid => $status)
 	{
-		$uid_list .= (", " . $uid);
+		array_push($uid_list, $uid);
 	}
 	unset($author_list);
 
 	$author_list = array();
 
-	$sql = "SELECT UID FROM user_list WHERE UID IN ($uid_list) AND enable";
+	$sql = "SELECT UID FROM user_list WHERE UID IN (" .
+			implode(",", $uid_list) .
+			") AND enable";
 
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)

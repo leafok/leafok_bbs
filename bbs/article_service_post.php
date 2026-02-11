@@ -396,7 +396,7 @@
 	}
 
 	// Get upload quota and used space
-	$atta_id_list = "-1";
+	$atta_id_list = array(-1);
 	$attachment_count = (isset($_FILES['attachment']['error']) ? count($_FILES['attachment']['error']) : 0);
 	if ($attachment_count > $BBS_upload_count_limit)
 	{
@@ -570,7 +570,7 @@
 		}
 
 		$attachment_id = mysqli_insert_id($db_conn);
-		$atta_id_list .= ("," . $attachment_id);
+		array_push($atta_id_list, $attachment_id);
 
 		$file_path = "upload/" . $attachment_id;
 		if(!move_uploaded_file($_FILES['attachment']['tmp_name'][$i], $file_path))
@@ -728,7 +728,9 @@
 	}
 
 	// Link attachments to article
-	$sql = "UPDATE upload_file SET ref_AID = $aid WHERE AID IN ($atta_id_list)";
+	$sql = "UPDATE upload_file SET ref_AID = $aid WHERE AID IN (" .
+			implode(",", $atta_id_list) .
+			")";
 
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)

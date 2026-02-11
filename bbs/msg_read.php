@@ -137,7 +137,7 @@
 		exit(json_encode($result_set));
 	}
 
-	$unread_mid_list = "-1";
+	$unread_mid_list = array(-1);
 	while ($row = mysqli_fetch_array($rs))
 	{
 		array_push($result_set["data"]["messages"], array(
@@ -151,15 +151,17 @@
 
 		if (!$sent && $row["new"])
 		{
-			$unread_mid_list .= (", " . $row["MID"]);
+			array_push($unread_mid_list, $row["MID"]);
 		}
 
 	}
 	mysqli_free_result($rs);
 
-	if (!$sent && $unread_mid_list != "-1")
+	if (!$sent && count($unread_mid_list) > 1)
 	{
-		$sql = "UPDATE bbs_msg SET new = 0 WHERE MID IN ($unread_mid_list)";
+		$sql = "UPDATE bbs_msg SET new = 0 WHERE MID IN (" .
+				implode(",", $unread_mid_list) .
+				")";
 
 		$rs = mysqli_query($db_conn, $sql);
 		if ($rs == false)

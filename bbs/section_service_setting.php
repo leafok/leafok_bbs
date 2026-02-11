@@ -161,7 +161,7 @@
 		}
 
 		$i = 1;
-		$sid_disabled_list = "-1";
+		$sid_disabled_list = array(-1);
 		$real_sort_order = 0;
 		while ($row = mysqli_fetch_array($rs))
 		{
@@ -184,7 +184,7 @@
 			{
 				if ($row["sort_order"] != 0)
 				{
-					$sid_disabled_list .= (", " . $row["SID"]);
+					array_push($sid_disabled_list, $row["SID"]);
 				}
 				continue;
 			}
@@ -232,9 +232,11 @@
 		}
 
 		// Enforce sort_order of disabled sections to 0
-		if ($sid_disabled_list != "-1")
+		if (count($sid_disabled_list) > 1)
 		{
-			$sql = "UPDATE section_config SET sort_order = 0 WHERE SID IN ($sid_disabled_list)";
+			$sql = "UPDATE section_config SET sort_order = 0 WHERE SID IN (" .
+					implode(",", $sid_disabled_list) .
+					")";
 
 			$rs = mysqli_query($db_conn, $sql);
 			if ($rs == false)

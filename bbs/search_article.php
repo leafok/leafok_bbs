@@ -76,14 +76,14 @@
 		mysqli_free_result($rs);
 	}
 
-	$sid_list = "-1";
+	$sid_list = array(-1);
 	if ($sid > 0)
 	{
 		if ($_SESSION["BBS_priv"]->checkpriv($sid, S_LIST))
 		{
 			if (!$trash || ($trash && ($_SESSION["BBS_priv"]->checkpriv($sid, S_MAN_S))))
 			{
-				$sid_list = $sid;
+				array_push($sid_list, $sid);
 			}
 		}
 	}
@@ -106,17 +106,19 @@
 			{
 				if (!$trash || ($trash && ($_SESSION["BBS_priv"]->checkpriv($row["SID"], S_MAN_S))))
 				{
-					$sid_list .= (", " . $row["SID"]);
+					array_push($sid_list, $row["SID"]);
 				}
 			}
 		}
 		mysqli_free_result($rs);
 	}
 
+	$sid_list_str = implode(",", $sid_list);
+
 	$sql = "SELECT count(*) AS article_count FROM bbs" .
 		($content == "" ? "" : " INNER JOIN bbs_content ON bbs.CID = bbs_content.CID") .
 		($favorite == 1 ? " INNER JOIN article_favorite ON IF(bbs.TID = 0, bbs.AID, bbs.TID) = article_favorite.AID AND article_favorite.UID = " . $_SESSION["BBS_uid"] : "") .
-		" WHERE SID in ($sid_list) AND " .
+		" WHERE SID in ($sid_list_str) AND " .
 		($reply ? "" : "TID = 0 AND ") .
 		($uid ? "UID = $uid AND " : "") .
 		"visible = " . ($trash ? 0 : 1) . " AND " .
@@ -192,7 +194,7 @@
 		INNER JOIN section_class ON section_config.CID = section_class.CID" .
 		($content == "" ? "" : " INNER JOIN bbs_content ON bbs.CID = bbs_content.CID") .
 		($favorite == 1 ? " INNER JOIN article_favorite ON IF(bbs.TID = 0, bbs.AID, bbs.TID) = article_favorite.AID AND article_favorite.UID = " . $_SESSION["BBS_uid"] : "") .
-		" WHERE bbs.SID in ($sid_list) AND " .
+		" WHERE bbs.SID in ($sid_list_str) AND " .
 		($reply ? "" : "TID = 0 AND ") .
 		($uid ? "UID = $uid AND ":"") .
 		"visible = " . ($trash ? 0 : 1) . " AND " .
@@ -220,13 +222,13 @@
 
 	if ($_SESSION["BBS_uid"] > 0)
 	{
-		$aid_list = "-1";
+		$aid_list = array(-1);
 
 		while ($row = mysqli_fetch_array($rs))
 		{
 			if ((new DateTimeImmutable("-" . $BBS_new_article_period . " day")) < (new DateTimeImmutable($row["sub_dt"])))
 			{
-				$aid_list .= (", " . $row["AID"]);
+				array_push($aid_list, $row["AID"]);
 			}
 			else
 			{
@@ -236,9 +238,11 @@
 
 		mysqli_data_seek($rs, 0);
 
-		if ($aid_list != "-1")
+		if (count($aid_list) > 1)
 		{
-			$sql = "SELECT AID FROM view_article_log WHERE AID IN ($aid_list) AND UID = " . $_SESSION["BBS_uid"];
+			$sql = "SELECT AID FROM view_article_log WHERE AID IN (" .
+					implode(",", $aid_list) .
+					") AND UID = " . $_SESSION["BBS_uid"];
 
 			$rs_view = mysqli_query($db_conn, $sql);
 			if ($rs_view == false)
@@ -302,16 +306,18 @@
 	}
 	mysqli_free_result($rs);
 
-	$uid_list = "-1";
+	$uid_list = array(-1);
 	foreach ($author_list as $uid => $status)
 	{
-		$uid_list .= (", " . $uid);
+		array_push($uid_list, $uid);
 	}
 	unset($author_list);
 
 	$author_list = array();
 
-	$sql = "SELECT UID FROM user_list WHERE UID IN ($uid_list) AND enable";
+	$sql = "SELECT UID FROM user_list WHERE UID IN (" .
+			implode(",", $uid_list) .
+			") AND enable";
 
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)

@@ -184,7 +184,7 @@
 		exit();
 	}
 
-	$aid_list = "-1";
+	$aid_list = array(-1);
 	while ($row = mysqli_fetch_array($rs))
 	{
 ?>
@@ -209,7 +209,7 @@
 				exit();
 			}
 
-			$aid_list .= (", " . $row["AID"]);
+			array_push($aid_list, $row["AID"]);
 		}
 		if (!copy("../gen_ex/static/" . $row["AID"] . ".html", "../gen_ex/$sid/$dir" . $row["AID"] . ".html"))
 		{
@@ -219,7 +219,9 @@
 	}
 	mysqli_free_result($rs);
 
-	$sql = "UPDATE bbs SET static = 1 WHERE AID IN ($aid_list)";
+	$sql = "UPDATE bbs SET static = 1 WHERE AID IN (" .
+			implode(",", $aid_list) .
+			")";
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)
 	{
