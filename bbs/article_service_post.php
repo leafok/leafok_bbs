@@ -38,6 +38,7 @@
 		array_push($result_set["return"]["errorFields"], array(
 			"id" => "title",
 			"errMsg" => "不能为空",
+			"updateValue" => "",
 		));
 	}
 
