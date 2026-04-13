@@ -8,6 +8,17 @@ WORKDIR /usr/local/composer
 COPY ./composer.json ./composer.lock ./
 RUN /usr/bin/composer install --prefer-dist --no-scripts --no-progress
 
+# Use the official Node image
+FROM node:slim AS node_installer
+
+# Set working directory
+RUN mkdir -p /usr/local/node
+
+WORKDIR /usr/local/node
+
+COPY package*.json ./
+RUN npm install
+
 # Use the official Apache image
 FROM httpd:2.4
 
@@ -18,7 +29,6 @@ RUN sed -i 's/#Include conf\/extra\/httpd-vhosts.conf/Include conf\/extra\/httpd
 # Copy web application files
 COPY ./bbs /var/www/html/bbs
 COPY ./gen_ex /var/www/html/gen_ex
-COPY ./js /var/www/html/js
 COPY ./lib /var/www/html/lib
 COPY ./manage /var/www/html/manage
 RUN mkdir -p /var/www/html/bbs/cache \
@@ -28,6 +38,9 @@ RUN mkdir -p /var/www/html/bbs/cache \
 
 # Copy the composer binary from the installer stage into your final image
 COPY --from=composer_installer /usr/local/composer/vendor /var/www/html/vendor
+
+# Copy the node modules from the installer stage into your final image
+COPY --from=node_installer /usr/local/node/node_modules /var/www/html/node_modules
 
 # Set ownership to www-data user and group
 RUN chown -R www-data:www-data /var/www/html
