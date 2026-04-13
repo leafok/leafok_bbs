@@ -33,8 +33,8 @@ TD.t1
 	font-size: 14px;
 }
 </style>
-<script src="../js/polyfill.min.js"></script>
-<script src="../js/axios.min.js"></script>
+<script src="/node_modules/js-polyfills/polyfill.min.js"></script>
+<script src="/node_modules/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 function vn_refresh(img)
 {

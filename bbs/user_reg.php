@@ -8,8 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>新用户注册</title>
 <link rel="stylesheet" href="css/default.css" type="text/css">
-<script src="../js/polyfill.min.js"></script>
-<script src="../js/axios.min.js"></script>
+<script src="/node_modules/js-polyfills/polyfill.min.js"></script>
+<script src="/node_modules/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 function vn_refresh(img)
 {

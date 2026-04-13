@@ -11,8 +11,8 @@
 <title>发表文章</title>
 <link rel="stylesheet" href="<?= get_theme_file('css/default'); ?>" type="text/css">
 <script type="text/javascript" src="<?= get_theme_file('js/lml_assistant'); ?>"></script>
-<script src="../js/polyfill.min.js"></script>
-<script src="../js/axios.min.js"></script>
+<script src="/node_modules/js-polyfills/polyfill.min.js"></script>
+<script src="/node_modules/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 function refresh_err_msg(errorFieldMap)
 {

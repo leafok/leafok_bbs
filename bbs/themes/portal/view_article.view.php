@@ -33,7 +33,7 @@
 		display: none;
 	}
 	</style>
-	<script src="../js/jquery.min.js"></script>
+	<script src="/node_modules/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$("img[class=auto_adjust]").on("load", function() {

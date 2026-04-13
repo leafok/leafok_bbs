@@ -112,9 +112,9 @@
 		display: none;
 	}
 	</style>
-	<script src="../js/polyfill.min.js"></script>
-	<script src="../js/axios.min.js"></script>
-	<script src="../js/jquery.min.js"></script>
+	<script src="/node_modules/js-polyfills/polyfill.min.js"></script>
+	<script src="/node_modules/axios/dist/axios.min.js"></script>
+	<script src="/node_modules/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript">
 	function ch_page(page)
 	{
