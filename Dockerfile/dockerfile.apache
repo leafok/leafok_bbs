@@ -16,7 +16,7 @@ RUN mkdir -p /usr/local/node
 
 WORKDIR /usr/local/node
 
-COPY package*.json ./
+COPY ./package*.json ./
 RUN npm install
 
 # Use the official Apache image
