@@ -51,6 +51,11 @@
 ```bash
 composer install --prefer-dist --no-scripts --no-progress
 ```
+- 使用包管理器安装 Node（例如 `apt`、`yum`）
+- 在项目根目录运行以下命令：
+```bash
+npm install
+```
 
 ### 2. 数据库设置
 - 导入数据库结构文件 `TODO/sql/db_stru.sql`

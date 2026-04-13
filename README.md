@@ -51,6 +51,11 @@ Chinese version: [README.zh_CN.md](README.zh_CN.md)
 ```bash
 composer install --prefer-dist --no-scripts --no-progress
 ```
+- Install Node using your package manager (e.g., `apt`, `yum`)
+- Run the following command in the project root directory:
+```bash
+npm install
+```
 
 ### 2. Database Setup
 - Import the database structure from `TODO/sql/db_stru.sql`
