@@ -112,7 +112,6 @@
 		display: none;
 	}
 	</style>
-	<script src="/node_modules/js-polyfills/polyfill.min.js"></script>
 	<script src="/node_modules/axios/dist/axios.min.js"></script>
 	<script src="/node_modules/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript">

@@ -15,7 +15,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>查看用户资料</title>
 <link rel="stylesheet" href="<?= get_theme_file('css/default'); ?>" type="text/css">
-<script src="/node_modules/js-polyfills/polyfill.min.js"></script>
 <script src="/node_modules/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 function refresh_err_msg(errorFieldMap)

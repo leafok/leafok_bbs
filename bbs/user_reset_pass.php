@@ -7,7 +7,6 @@
 		<title>重置密码</title>
 		<link rel="stylesheet" href="css/default.css" type="text/css">
 	</head>
-<script src="/node_modules/js-polyfills/polyfill.min.js"></script>
 <script src="/node_modules/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
 function reset_flag()
