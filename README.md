@@ -45,7 +45,7 @@ Chinese version: [README.zh_CN.md](README.zh_CN.md)
 ## Installation and Usage Instructions
 
 ### 1. Prerequisites and Required Libraries
-- **PHP 8.2+** and **MySQL 8.4+** installed
+- **PHP 8.4+** and **MySQL 8.4+** installed
 - Install Composer using your package manager (e.g., `apt`, `yum`)
 - Run the following command in the project root directory:
 ```bash
