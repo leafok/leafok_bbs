@@ -2,6 +2,10 @@
 
 英文版本: [CHANGELOG.md](CHANGELOG.md)
 
+## 2026年9月
+
+- 修复 IP 掩码、UTF-8 字符串处理和目录删除的缺陷
+
 ## 2026年1月
 
 - 支持 Docker 容器化部署

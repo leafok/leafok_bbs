@@ -2,6 +2,10 @@
 
 Chinese version: [CHANGELOG.zh_CN.md](CHANGELOG.zh_CN.md)
 
+## September 2026
+
+- Bug fixes in IP masking, UTF-8 string processing and directory removal
+
 ## January 2026
 
 - Docker container deployment support
