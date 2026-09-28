@@ -4,8 +4,10 @@
 
 	if (!extension_loaded("gd"))
 	{
-		$prefix = (PHP_SHLIB_SUFFIX === 'dll') ? 'php_' : '';
-		dl($prefix . 'gd.' . PHP_SHLIB_SUFFIX);
+		// dl() cannot be used instead: dynamically loading extensions is
+		// no longer supported by PHP for web SAPIs (it always fails since PHP 8).
+		http_response_code(500);
+		exit("GD extension is required to render statistics charts.");
 	}
 ?>
 <?php
