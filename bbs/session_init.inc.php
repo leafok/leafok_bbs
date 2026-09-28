@@ -74,10 +74,27 @@ if (!defined("_BBS_SESSION_INIT_"))
 
 	// Initiate Session
 	session_name("BBS");
-	session_set_cookie_params($BBS_session_lifetime, "/");
+
+	// HttpOnly keeps the session id out of reach of JavaScript,
+	// SameSite=Lax blocks it from being sent on cross-site requests
+	$BBS_session_cookie_params = array(
+		"lifetime"	=> $BBS_session_lifetime,
+		"path"		=> "/",
+		"secure"	=> (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] != "" && $_SERVER["HTTPS"] != "off"),
+		"httponly"	=> true,
+		"samesite"	=> "Lax",
+	);
+
+	session_set_cookie_params($BBS_session_cookie_params);
 	session_cache_limiter("nocache");
 	session_start();
-	setcookie(session_name(), session_id(), time() + $BBS_session_lifetime, "/");
+	setcookie(session_name(), session_id(), array(
+		"expires"	=> time() + $BBS_session_lifetime,
+		"path"		=> "/",
+		"secure"	=> $BBS_session_cookie_params["secure"],
+		"httponly"	=> true,
+		"samesite"	=> "Lax",
+	));
 
 	if (!isset($_SESSION["BBS_uid"]))
 	{
