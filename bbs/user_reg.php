@@ -12,7 +12,7 @@
 <script type="text/javascript">
 function vn_refresh(img)
 {
-	img.src = img.src;
+	img.src = "vn_display.php?ts=" + Math.random();
 	return false;
 }
 
