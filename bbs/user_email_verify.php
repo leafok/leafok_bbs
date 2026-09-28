@@ -65,7 +65,7 @@
 	}
 
 	$sql = "UPDATE user_modify_email_verify set complete = 1
-			WHERE verify_code = '$verify_code'";
+			WHERE verify_code = '$verify_code' AND UID = " . intval($_SESSION["BBS_uid"]);
 
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)

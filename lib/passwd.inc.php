@@ -1,5 +1,5 @@
 <?php
-function verify_pass_complexity($password, $username, $min_len)
+function verify_pass_complexity(string $password, string $username, int $min_len) : bool
 {
 	$num_count = 0;
 	$upper_case = 0;
@@ -11,7 +11,7 @@ function verify_pass_complexity($password, $username, $min_len)
 		return false;
 	}
 
-	if (stristr($password, $username) !== false)
+	if ($username != "" && stristr($password, $username) !== false)
 	{
 		return false;
 	}
@@ -44,15 +44,19 @@ function verify_pass_complexity($password, $username, $min_len)
 	return true;
 }
 
-function gen_passwd($len)
+function gen_passwd(int $len) : string
 {
+	// Character set kept consistent with the historical output
+	// (digits, upper case letters, lower case letters)
+	$charset = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+	$charset_len = strlen($charset);
 	$str = "";
 
 	for ($i = 0; $i < $len; $i++)
 	{
-		mt_srand(intval(microtime(true) * 1000000));
-	    $num = mt_rand(0, 61);
-	    $str .= chr($num < 10 ? (ord("0") + $num) : ($num < 36 ? (ord("A") + $num - 10) : (ord("a") + $num - 36)));
+		// random_int() is a cryptographically secure source of randomness;
+		// mt_rand() / mt_srand() must never be used to generate passwords
+		$str .= $charset[random_int(0, $charset_len - 1)];
 	}
 
 	return $str;

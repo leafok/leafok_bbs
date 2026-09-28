@@ -1,5 +1,5 @@
 <?php
-function check_badwords(string $str_check, string $bw_replace = "", int & $bw_count = null) : string | null
+function check_badwords(string $str_check, string $bw_replace = "", ?int & $bw_count = null) : string | null
 {
 	$badwords_dict = "../conf/badwords.conf";
 

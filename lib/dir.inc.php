@@ -1,19 +1,26 @@
 <?php
-	function delTree($dir)
+function delTree(string $dir) : bool
+{
+	$files = @scandir($dir);
+	if ($files === false)
 	{
-		$files = array_diff(scandir($dir), array('.', '..'));
+		return false;
+	}
 
-		foreach ($files as $file)
+	foreach (array_diff($files, array('.', '..')) as $file)
+	{
+		if (is_dir("$dir/$file"))
 		{
-			if (is_dir("$dir/$file"))
+			if (!delTree("$dir/$file"))
 			{
-				delTree("$dir/$file");
-			}
-			else
-			{
-				unlink("$dir/$file");
+				return false;
 			}
 		}
-
-		return rmdir($dir);
+		else if (!unlink("$dir/$file"))
+		{
+			return false;
+		}
 	}
+
+	return rmdir($dir);
+}

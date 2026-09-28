@@ -66,6 +66,10 @@
 		exit(json_encode($result_set));
 	}
 
+	// Secure SQL statement
+	$username = mysqli_real_escape_string($db_conn, $username);
+	$email = mysqli_real_escape_string($db_conn, $email);
+
 	$sql = "SELECT user_list.UID, username, email FROM user_list
 			INNER JOIN user_pubinfo ON user_list.UID = user_pubinfo.UID
 			WHERE user_list.enable AND username = '$username' and email = '$email'";

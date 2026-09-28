@@ -1,6 +1,6 @@
 <?php
 //Log article operation into table bbs_article_log
-function article_op_log(int $aid, int $uid, string $op_type, string $ip_addr, mysqli $db_conn = null) : mysqli_result | bool
+function article_op_log(int $aid, int $uid, string $op_type, string $ip_addr, ?mysqli $db_conn = null) : mysqli_result | bool
 {
 	/*
 		Type	Description
@@ -28,7 +28,7 @@ function article_op_log(int $aid, int $uid, string $op_type, string $ip_addr, my
 }
 
 //Add/Subtract user exp
-function user_exp_change(int $uid, int $exp_change, mysqli $db_conn = null) : mysqli_result | bool
+function user_exp_change(int $uid, int $exp_change, ?mysqli $db_conn = null) : mysqli_result | bool
 {
 	$sql = "UPDATE user_pubinfo SET exp = exp + $exp_change WHERE UID = $uid";
 
