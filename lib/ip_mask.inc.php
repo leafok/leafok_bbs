@@ -11,14 +11,22 @@ function ip_mask(string $ip, int $level = 2, string $mask = "*") : string
 	}
 
 	$ips = explode(".", $ip);
-	$ret = "";
 
-	for ($i = 0; $i < 4 - $level; $i++)
+	// Octet-wise masking is only defined for IPv4 addresses.
+	// Anything else (empty value, IPv6, hostname...) is returned unchanged,
+	// because a partially masked value cannot be produced for it.
+	if (count($ips) != 4)
 	{
-		$ret .= ($ips[$i] . ($i < 3 - $level ? "." : ""));
+		return $ip;
 	}
 
-	$ret .= str_repeat("." . $mask, $level);
+	$keep = 4 - $level;
 
-	return $ret;
+	$ret = implode(".", array_slice($ips, 0, $keep));
+	if ($keep > 0)
+	{
+		$ret .= ".";
+	}
+
+	return $ret . implode(".", array_fill(0, $level, $mask));
 }
