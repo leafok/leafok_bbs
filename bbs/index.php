@@ -14,6 +14,18 @@
 	$redir = (isset($_GET["redir"]) ? $_GET["redir"] : "main.php");
 	$msg = (isset($_GET["msg"]) ? intval($_GET["msg"]) : 0);
 
+	// Only accept plain relative locations, otherwise an attacker could turn this
+	// page into an open redirect or inject scripts through the "redir" parameter.
+	// Allowed characters cover the URL-encoded query strings produced by
+	// force_login(), list.php, etc. ":" is rejected, so schemes such as
+	// "javascript:" and "https://" cannot be used.
+	if (strlen($redir) > 1024 ||
+		!preg_match("/^[A-Za-z0-9_.%+=&?#\/-]+$/", $redir) ||
+		str_contains($redir, "//"))
+	{
+		$redir = "main.php";
+	}
+
 	if ($_SESSION["BBS_uid"] > 0 && $ch_passwd == 0 && $msg == 0)
 	{
 		header ("Location: $redir");
@@ -37,7 +49,7 @@ TD.t1
 <script type="text/javascript">
 function vn_refresh(img)
 {
-	img.src = img.src;
+	img.src = "vn_display.php?ts=" + Math.random();
 	return false;
 }
 
@@ -52,7 +64,7 @@ function check_user(f)
 {
 	if (f.ch_passwd.value == "0" && f.username.value == "" && f.password.value == "")
 	{
-		document.location = "<?= $redir; ?>";
+		document.location = <?= json_encode($redir); ?>;
 		return false;
 	}
 
@@ -78,7 +90,7 @@ function check_user(f)
         {
 			case 0:
 				refresh_err_msg(errorFieldMap);
-				document.location = "<?= $redir; ?>";
+				document.location = <?= json_encode($redir); ?>;
 				break;
 			case 1:
 				f.mfa.value = "1";
@@ -166,7 +178,7 @@ window.addEventListener("load", () => {
 	<tr height=20>
 		<td></td>
     	<td colspan="2" width="40" class="t1" align="center">
-			<span id="err_msg_prompt" name="err_msg" style="color: red"><?= htmlspecialchars($msg_list[$msg], ENT_HTML401, 'UTF-8'); ?><br /></span>
+			<span id="err_msg_prompt" name="err_msg" style="color: red"><?= htmlspecialchars(isset($msg_list[$msg]) ? $msg_list[$msg] : "", ENT_HTML401, 'UTF-8'); ?><br /></span>
 		</td>
 		<td></td>
 	</tr>
@@ -176,7 +188,7 @@ window.addEventListener("load", () => {
     		用户名：
 		</td>
     	<td width="50%" class="t1" align="left">
-			<span id="err_msg_username" name="err_msg" style="color: red;"></span><input size="14" id="username" name="username" value="<?= $_SESSION["BBS_username"]; ?>" onfocus="this.select();">
+			<span id="err_msg_username" name="err_msg" style="color: red;"></span><input size="14" id="username" name="username" value="<?= htmlspecialchars($_SESSION["BBS_username"], ENT_HTML401, 'UTF-8'); ?>" onfocus="this.select();">
 		</td>
 		<td width="5%"></td>
 	</tr>
