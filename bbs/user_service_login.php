@@ -209,8 +209,8 @@
 			{
 				$verified = 1;
 
-				// Set life = 150 for verified user
-				$sql = "UPDATE user_pubinfo SET life = 150 WHERE UID = $uid";
+				// Set life = 150 for verified user without special life value
+				$sql = "UPDATE user_pubinfo SET life = GREATEST(150, life) WHERE UID = $uid";
 				$rs_life = mysqli_query($db_conn, $sql);
 				if ($rs_life == false)
 				{
