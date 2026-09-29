@@ -25,7 +25,7 @@ INSERT INTO `user_nickname` (`NID`, `UID`, `nickname`, `begin_dt`, `begin_reason
 (1, 1, '懂王', '2026-01-01 00:00:00', 'R', NULL, NULL);
 
 INSERT INTO `user_pubinfo` (`UID`, `nickname`, `email`, `gender`, `qq`, `introduction`, `photo`, `photo_enable`, `photo_ext`, `life`, `exp`, `visit_count`, `gender_pub`, `last_login_dt`, `last_logout_dt`, `sign_1`, `sign_2`, `sign_3`, `upload_limit`, `login_notify_dt`, `user_timezone`, `game_money`) VALUES
-(1, '懂王', 'zhangsan@example.com', 'M', '', '', 0, 0, '', 150, 0, 4, 1, '2026-01-01 00:00:00', '2026-01-01 00:00:00', '', '', '', 1048576, NULL, 'Asia/Shanghai', 0);
+(1, '懂王', 'zhangsan@example.com', 'M', '', '', 0, 0, '', 999, 0, 4, 1, '2026-01-01 00:00:00', '2026-01-01 00:00:00', '', '', '', 1048576, NULL, 'Asia/Shanghai', 0);
 
 INSERT INTO `user_reginfo` (`UID`, `name`, `birthday`, `signup_dt`, `signup_ip`, `memo`) VALUES
 (1, '张三', '1995-09-01 00:00:00', '2026-01-01 00:00:00', '127.0.0.1', NULL);
