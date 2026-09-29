@@ -167,8 +167,6 @@
 		mysqli_free_result($rs);
 	}
 
-	// NOTE: The password hashing scheme (MD5 -> SHA2-256) is a storage contract
-	// shared with LBBS (the C terminal server implementation) and must not change.
 	$sql = "SELECT UID, username, p_login, verified, temp_password,
 			password = MD5('$password') AS old_pass,
 			(temp_password = SHA2('$password', 256) OR temp_password = '$password') AS temp_pass
@@ -240,7 +238,6 @@
 		}
 		else if ($row["old_pass"])
 		{
-			// Upgrade the legacy MD5 hash to SHA2-256
 			$sql = "UPDATE user_list SET password = SHA2('$password', 256) WHERE UID = $uid";
 			$rs_p = mysqli_query($db_conn, $sql);
 			if ($rs_p == false)
@@ -284,38 +281,6 @@
 		{
 			$result_set["return"]["code"] = 3;
 			$result_set["return"]["message"] = "您已被封禁全站登陆权限！";
-
-			mysqli_close($db_conn);
-			exit(json_encode($result_set));
-		}
-
-		// Prevent session fixation: issue a new session id upon authentication
-		$sid_old = session_id();
-		session_regenerate_id(true);
-		$sid_new = session_id();
-
-		// The online record must follow the new session id, otherwise keep_alive()
-		// below would not find this session and would immediately log the user out
-		$sql = "DELETE FROM user_online WHERE SID = '" .
-				mysqli_real_escape_string($db_conn, $sid_new) . "'";
-		$rs_sid = mysqli_query($db_conn, $sql);
-		if ($rs_sid == false)
-		{
-			$result_set["return"]["code"] = -2;
-			$result_set["return"]["message"] = "Mysqli error: " . mysqli_error($db_conn);
-
-			mysqli_close($db_conn);
-			exit(json_encode($result_set));
-		}
-
-		$sql = "UPDATE user_online SET SID = '" .
-				mysqli_real_escape_string($db_conn, $sid_new) . "' WHERE SID = '" .
-				mysqli_real_escape_string($db_conn, $sid_old) . "'";
-		$rs_sid = mysqli_query($db_conn, $sql);
-		if ($rs_sid == false)
-		{
-			$result_set["return"]["code"] = -2;
-			$result_set["return"]["message"] = "Mysqli error: " . mysqli_error($db_conn);
 
 			mysqli_close($db_conn);
 			exit(json_encode($result_set));
