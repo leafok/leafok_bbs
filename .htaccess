@@ -12,7 +12,7 @@ RewriteEngine On
 # working when the application is deployed in a sub-directory. Matching is
 # case insensitive because deployments exist on case insensitive file systems.
 # manage/ is deliberately not listed: it is the authenticated admin UI.
-RewriteRule ^(?:conf|export_xml|lib|scripts|TODO|vendor)(?:/|$) - [F,L,NC]
+RewriteRule ^(?:conf|Dockerfile|export_xml|lib|scripts|TODO|vendor)(?:/|$) - [F,L,NC]
 
 # Page cache and the raw attachment store must not be reachable over HTTP:
 # the cache holds per user fragments and attachments are only served through
