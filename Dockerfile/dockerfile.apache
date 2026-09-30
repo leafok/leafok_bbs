@@ -27,6 +27,7 @@ COPY ./Dockerfile/httpd-vhosts.conf /usr/local/apache2/conf/extra/httpd-vhosts.c
 RUN sed -i 's/#Include conf\/extra\/httpd-vhosts.conf/Include conf\/extra\/httpd-vhosts.conf/' /usr/local/apache2/conf/httpd.conf
 
 # Copy web application files
+COPY .htaccess /var/www/html/.htaccess
 COPY ./bbs /var/www/html/bbs
 COPY ./gen_ex /var/www/html/gen_ex
 COPY ./lib /var/www/html/lib

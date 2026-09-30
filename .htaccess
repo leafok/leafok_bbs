@@ -1,0 +1,40 @@
+# BEGIN Redir
+#
+# Access rules for the document root of LeafOK BBS.
+# The rules only need mod_rewrite (AllowOverride FileInfo), no other override,
+# so the file stays usable on hosts with a restricted AllowOverride setting.
+#
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Deny direct web access to server side code, configuration and data
+# directories. Patterns are relative to this directory, so the rules keep
+# working when the application is deployed in a sub-directory. Matching is
+# case insensitive because deployments exist on case insensitive file systems.
+# manage/ is deliberately not listed: it is the authenticated admin UI.
+RewriteRule ^(?:conf|export_xml|lib|scripts|TODO|vendor)(?:/|$) - [F,L,NC]
+
+# Page cache and the raw attachment store must not be reachable over HTTP:
+# the cache holds per user fragments and attachments are only served through
+# bbs/dl_file.php, which enforces the check/deny/deleted flags of upload_file.
+RewriteRule ^bbs/(?:cache|upload)(?:/|$) - [F,L,NC]
+
+# Deny version control, deployment and other dot files. /.well-known/ is
+# excluded so ACME HTTP-01 challenge files stay reachable.
+RewriteRule (?:^|/)\.(?!well-known(?:/|$)) - [F,L]
+
+# Deny helper, documentation, data and deployment files wherever they live.
+RewriteRule \.(?:inc(?:\.php)?|log|md|sql|sh|conf|lock|ya?ml)$ - [F,L,NC]
+
+# View templates are included by PHP and must never be requested directly.
+RewriteRule \.view\.php$ - [F,L,NC]
+
+# Build and dependency manifests that live in this directory.
+RewriteRule ^(?:Dockerfile|composer\.(?:json|lock)|package(?:-lock)?\.json)(?:/|$) - [F,L,NC]
+
+# Only the bundled axios/jquery build may be served from node_modules.
+RewriteRule ^node_modules/(?!(?:axios|jquery)/dist/(?:axios|jquery)\.min\.js$) - [F,L,NC]
+
+</IfModule>
+#
+# END Redir
