@@ -92,13 +92,13 @@ function check_user(f)
 				refresh_err_msg(errorFieldMap);
 				document.location = <?= json_encode($redir); ?>;
 				break;
-			case 1:
+			case 1: // Show MFA fields
 				f.mfa.value = "1";
 				errorFieldMap.set("err_msg_prompt", ret.return.message);
 				refresh_err_msg(errorFieldMap);
 				document.getElementById("tr_vn_str").style.visibility = "visible";
 				break;
-			case 2:
+			case 2: // Show change password fields
 				f.ch_passwd.value = "1";
 				errorFieldMap.set("err_msg_prompt", ret.return.message);
 				refresh_err_msg(errorFieldMap);
@@ -110,13 +110,20 @@ function check_user(f)
 				refresh_err_msg(errorFieldMap);
 				vn_refresh(document.getElementById("vn_img"));
 				break;
-			case 4:
+			case 4: // Show agreement text
 				errorFieldMap.set("err_msg_prompt", "本站《用户许可协议》已更新，需要您的确认");
 				refresh_err_msg(errorFieldMap);
 				document.getElementById("text_agreement").value = ret.return.message;
 				document.getElementById("tr_agreement_text").style.visibility = "visible";
 				document.getElementById("tr_agreement_check").style.visibility = "visible";
 				break;
+			case 5: // Hide change password fields after password changed
+				f.ch_passwd.value = "0";
+				errorFieldMap.set("err_msg_prompt", ret.return.message);
+				refresh_err_msg(errorFieldMap);
+				document.getElementById("tr_ch_passwd").style.visibility = "collapse";
+				document.getElementById("tr_password_1").style.visibility = "collapse";
+				document.getElementById("tr_password_2").style.visibility = "collapse";
 			case -1:
 				ret.return.errorFields.forEach(field => {
 					errorFieldMap.set("err_msg_" + field.id, field.errMsg + "<br />");

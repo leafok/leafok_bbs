@@ -276,6 +276,16 @@
 			exit(json_encode($result_set));
 		}
 
+		// Change password, need to re-login
+		if ($ch_passwd)
+		{
+			$result_set["return"]["code"] = 5;
+			$result_set["return"]["message"] = "密码已修改，请重新登陆";
+
+			mysqli_close($db_conn);
+			exit(json_encode($result_set));
+		}
+
 		// Forbidden user
 		if (!$row["p_login"])
 		{
