@@ -157,7 +157,7 @@
 	{
 		foreach ($solr_obj->response->docs as $doc)
 		{
-			array_push($aid_list, $doc["ArticleId"]);
+			array_push($aid_list, intval($doc["ArticleId"]));
 		}
 	}
 
@@ -233,6 +233,13 @@
 
 	while ($row = mysqli_fetch_array($rs))
 	{
+		// The search terms reach Solr verbatim, so the SectionId clause built above
+		// cannot be relied on to enforce readability by itself
+		if (!$_SESSION["BBS_priv"]->checkpriv($row["SID"], S_LIST))
+		{
+			continue;
+		}
+
 		array_push($result_set["data"]["articles"], array(
 			"aid" => $row["AID"],
 			"tid" => $row["TID"],
