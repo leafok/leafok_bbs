@@ -44,10 +44,10 @@ function set_checkboxes(do_check)
 	return true;
 }
 
-function show_send_msg(uid, nickname)
+function show_send_msg(element)
 {
-	document.getElementById("uid").value = uid;
-	document.getElementById("nickname").value = nickname;
+	document.getElementById("uid").value = element.dataset.uid;
+	document.getElementById("nickname").value = element.dataset.nickname;
 	document.getElementById("content").value = "";
 	document.getElementById("tr_send_msg").style.visibility = "visible";
 
@@ -172,7 +172,7 @@ const instance = axios.create({
 					<input type="hidden" id="uid" name="uid" value="<?= $result_set["data"]["uid"]; ?>">
 					<p>
 						<span id="err_msg_send" name="err_msg" style="color: red"></span>
-						发送给：<input id="nickname" name="nickname" value="<?= $result_set["data"]["nickname"]; ?>" readonly><br />
+						发送给：<input id="nickname" name="nickname" value="<?= htmlspecialchars($result_set["data"]["nickname"], ENT_QUOTES | ENT_HTML401, 'UTF-8'); ?>" readonly><br />
 						内容：<br />
 						<textarea id="content" name="content" rows="10" cols="90"></textarea><br />
 						不能超过10行，每行256字符以内
@@ -221,7 +221,7 @@ foreach ($result_set["data"]["messages"] as $message)
 ?>
 			<tr bgcolor="<?= $color[1]; ?>">
 				<td>
-					<?= ($result_set["data"]["sent"] ? "收件人" : "发送人"); ?>：<a class="s2" href="view_user.php?uid=<?= $message["uid"]; ?>" target=_blank title="查看用户资料"><?= $message["nickname"]; ?></a>
+					<?= ($result_set["data"]["sent"] ? "收件人" : "发送人"); ?>：<a class="s2" href="view_user.php?uid=<?= $message["uid"]; ?>" target=_blank title="查看用户资料"><?= htmlspecialchars($message["nickname"], ENT_HTML401, 'UTF-8'); ?></a>
 					&nbsp;&nbsp;发送时间：<?= $message["send_dt"]->format("Y-m-d H:i:s"); ?>
 <?php
 	if ($message["new"])
@@ -234,7 +234,7 @@ foreach ($result_set["data"]["messages"] as $message)
 	{
 ?>
 					&nbsp;
-					<a class="s2" href="" onclick="return show_send_msg(<?= $message["uid"]; ?>, '<?= $message["nickname"]; ?>');">
+					<a class="s2" href="" data-uid="<?= $message["uid"]; ?>" data-nickname="<?= htmlspecialchars($message["nickname"], ENT_QUOTES | ENT_HTML401, 'UTF-8'); ?>" onclick="return show_send_msg(this);">
 						<?= ($result_set["data"]["sent"] ? "发送消息" : "回复消息"); ?>
 					</a>
 <?php
