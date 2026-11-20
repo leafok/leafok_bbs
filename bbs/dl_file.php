@@ -63,7 +63,12 @@
 	header("Content-type: application/octet-stream");
 	header("Accept-Ranges: bytes");
 	header("Accept-Length: " . filesize($url));
-	header("Content-Disposition: attachment; filename=" . $filename);
+
+	// The stored name is user supplied: keep a quote-free ASCII fallback for old
+	// clients and carry the real name in the RFC 5987 parameter
+	$fallback_name = preg_replace("/[^A-Za-z0-9._ -]/", "_", $filename);
+	header('Content-Disposition: attachment; filename="' . $fallback_name . '"' .
+			"; filename*=UTF-8''" . rawurlencode($filename));
 
 	while (!feof($file)) {
 		echo fread($file, 4096);
