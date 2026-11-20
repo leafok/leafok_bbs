@@ -55,7 +55,7 @@ if (!isset($_BBS_S_FAVOR_CLASS_INIT_))
 
 			foreach ($this->s_list as $sid)
 			{
-				if (mysqli_query($db_conn, "INSERT INTO section_favorite(UID, SID) VALUES($uid, $sid)") == false)
+				if (mysqli_query($db_conn, "INSERT INTO section_favorite(UID, SID) VALUES(" . intval($uid) . ", " . intval($sid) . ")") == false)
 				{
 					return -3;
 				}

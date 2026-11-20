@@ -7,7 +7,9 @@
 
 	$data = json_decode(file_get_contents("php://input"), true);
 
-	$sid_list = (isset($data["sid_list"]) ? $data["sid_list"] : array());
+	// An absent or malformed list must not be mistaken for "remove all favorites"
+	$sid_list_given = isset($data["sid_list"]) && is_array($data["sid_list"]);
+	$sid_list = ($sid_list_given ? array_map("intval", $data["sid_list"]) : array());
 
 	$result_set = array(
 		"return" => array(
@@ -19,9 +21,18 @@
 
 	header("Content-Type:application/json; charset=utf-8");
 
+	if (!$sid_list_given)
+	{
+		$result_set["return"]["code"] = -1;
+		$result_set["return"]["message"] = "没有选中版块";
+
+		mysqli_close($db_conn);
+		exit(json_encode($result_set));
+	}
+
 	foreach ($sid_list as $index => $sid)
 	{
-		if (!$_SESSION["BBS_priv"]->checkpriv(intval($sid), S_LIST))
+		if (!$_SESSION["BBS_priv"]->checkpriv($sid, S_LIST))
 		{
 			unset($sid_list[$index]);
 		}
