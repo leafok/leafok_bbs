@@ -275,6 +275,18 @@
 			break; // default: Invalid Op
 	}
 
+	$sql = "UPDATE user_online SET current_action = 'reload' WHERE UID = $uid";
+
+	$rs = mysqli_query($db_conn, $sql);
+	if ($rs == false)
+	{
+		$result_set["return"]["code"] = -2;
+		$result_set["return"]["message"] = "Update user online error: " . mysqli_error($db_conn);
+
+		mysqli_close($db_conn);
+		exit(json_encode($result_set));
+	}
+
 	// Commit transaction
 	$rs = mysqli_query($db_conn, "COMMIT");
 	if ($rs == false)
