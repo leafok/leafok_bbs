@@ -54,7 +54,7 @@
 	}
 	mysqli_free_result($rs);
 
-	$sql = "UPDATE user_pubinfo SET email = '$email' WHERE UID = " . $_SESSION["BBS_uid"];
+	$sql = "UPDATE user_pubinfo SET email = '" . mysqli_real_escape_string($db_conn, $email) . "' WHERE UID = " . $_SESSION["BBS_uid"];
 
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)
