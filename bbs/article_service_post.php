@@ -469,8 +469,8 @@
 			exit(json_encode($result_set));
 		}
 
-		$filesize = $_FILES['attachment']['size'][$i];
-		$filename = $_FILES['attachment']['name'][$i];
+		$filesize = intval($_FILES['attachment']['size'][$i]);
+		$filename = basename((string) $_FILES['attachment']['name'][$i]);
 
 		if ($filesize > 0)
 		{
@@ -554,11 +554,12 @@
 	// Store attachments
 	for ($i = 0; $i < $attachment_count; $i++)
 	{
-		$filesize = $_FILES['attachment']['size'][$i];
-		$filename = $_FILES['attachment']['name'][$i];
+		$filesize = intval($_FILES['attachment']['size'][$i]);
+		$filename = basename((string) $_FILES['attachment']['name'][$i]);
 
 		$sql = "INSERT INTO upload_file(UID, size, filename, `check`) VALUES(" .
-				$_SESSION["BBS_uid"] . ", $filesize, '$filename', 0)";
+				$_SESSION["BBS_uid"] . ", $filesize, '" .
+				mysqli_real_escape_string($db_conn, $filename) . "', 0)";
 
 		$rs = mysqli_query($db_conn, $sql);
 		if ($rs == false)
@@ -604,7 +605,7 @@
 		$sql = "INSERT INTO bbs(SID, TID, UID, username, nickname, title, CID, transship,
 				sub_dt, sub_ip, reply_note, exp, last_reply_dt, icon, length)
 				VALUES($sid, $tid, " . $_SESSION["BBS_uid"] . ", '" .
-				$_SESSION["BBS_username"] . "', '" .
+				mysqli_real_escape_string($db_conn, $_SESSION["BBS_username"]) . "', '" .
 				mysqli_real_escape_string($db_conn, $nickname) . "', '" .
 				mysqli_real_escape_string($db_conn, $title) . "', " .
 				"$cid, $transship, NOW(), '" . client_addr() .
@@ -626,7 +627,7 @@
 		{
 			$sql = "UPDATE bbs SET reply_count = reply_count + 1,
 					last_reply_dt = NOW(), last_reply_UID=" . $_SESSION["BBS_uid"] .
-					", last_reply_username = '" . $_SESSION["BBS_username"] .
+					", last_reply_username = '" . mysqli_real_escape_string($db_conn, $_SESSION["BBS_username"]) .
 					"', last_reply_nickname = '" . mysqli_real_escape_string($db_conn, $nickname) .
 					"' WHERE Aid = $tid";
 
