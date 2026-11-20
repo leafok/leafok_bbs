@@ -7,7 +7,7 @@
 	require_once "../lib/common.inc.php";
 	require_once "../lib/db_open.inc.php";
 
-	if (!isset($_SERVER["argc"]))
+	if (PHP_SAPI != "cli")
 	{
 		require_once "../bbs/session_init.inc.php";
 

@@ -8,7 +8,7 @@
 	require_once "../lib/lml.inc.php";
 	require_once "../lib/str_process.inc.php";
 
-	if (!isset($_SERVER["argc"]))
+	if (PHP_SAPI != "cli")
 	{
 		require_once "../bbs/session_init.inc.php";
 

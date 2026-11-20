@@ -14,7 +14,7 @@
 		)
 	);
 
-	if (isset($_SERVER["argc"]) && $_SERVER["argc"] == 3)
+	if (PHP_SAPI == "cli" && $_SERVER["argc"] == 3)
 	{
 		$priv_check = false;
 
@@ -359,7 +359,7 @@
 	);
 
 	// Only show set_ex_file at page 1 in HTTP server mode
-	if (!isset($_SERVER["argc"]) && $excerption && $page == 1 && $_SESSION["BBS_priv"]->checkpriv($sid, S_POST | S_MAN_S))
+	if (PHP_SAPI != "cli" && $excerption && $page == 1 && $_SESSION["BBS_priv"]->checkpriv($sid, S_POST | S_MAN_S))
 	{
 		$sql = "SELECT FID, dir, name FROM ex_dir WHERE SID = $sid AND enable ORDER BY dir";
 
@@ -597,7 +597,7 @@
 	}
 
 	// Only update view counter in HTTP server mode
-	if (!isset($_SERVER["argc"]))
+	if (PHP_SAPI != "cli")
 	{
 		$sql = "UPDATE bbs SET view_count = view_count + 1 WHERE AID = $id";
 
