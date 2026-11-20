@@ -70,6 +70,23 @@ $lml_tag_def = array(
 	"bwf" => array("<span style=\"color: red\">****</span>", "", "****"),
 );
 
+function lml_url_filter(string $url) : string
+{
+	// Browsers ignore leading/trailing whitespace and control characters when they
+	// resolve a URL, and a scheme is only ever dangerous at its start, so the scheme
+	// test has to run against a copy with every such character removed.
+	// Tabs and newlines survive the htmlspecialchars() applied to tag parameters.
+	$scheme_probe = preg_replace("/[\x00-\x20\x7f-\x9f]+/", "", $url);
+
+	// Filter malicious code
+	if (preg_match("/^(javascript|data|vbscript|script|about|blob|file):/i", $scheme_probe))
+	{
+		return "#";
+	}
+
+	return $url;
+}
+
 function lml_tag_filter(string $tag_name, string | null $tag_arg, bool $quote_mode) : string
 {
 	global $BBS_theme_current;
@@ -87,11 +104,7 @@ function lml_tag_filter(string $tag_name, string | null $tag_arg, bool $quote_mo
 			break;
 		case "link":
 		case "url":
-			if (preg_match("/^(javascript|data|vbscript|script|about|blob|file):/i", $tag_arg)) // Filter malicious code
-			{
-				$tag_arg = "#";
-			}
-			$tag_result = "<a class=\"s7\" href=\"" . $tag_arg . "\" target=_blank rel=\"noopener noreferrer\">";
+			$tag_result = "<a class=\"s7\" href=\"" . lml_url_filter((string) $tag_arg) . "\" target=_blank rel=\"noopener noreferrer\">";
 			break;
 		case "article":
 			$tag_result = "<a class=\"s7\" href=\"/bbs/view_article.php?tn=" .
@@ -393,6 +406,14 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 					}
 					$tag_param_buf = substr($str_in, $tag_param_pos, $tag_end_pos - $tag_param_pos);
 					$tag_param_buf = htmlspecialchars($tag_param_buf, ENT_QUOTES | ENT_HTML401, 'UTF-8');
+
+					// image/flash/email build their output from the tag table, so the URL
+					// scheme test is applied here rather than in lml_tag_filter()
+					if ($tag_name === "url" || $tag_name === "link" || $tag_name === "image" ||
+						$tag_name === "flash" || $tag_name === "email")
+					{
+						$tag_param_buf = lml_url_filter($tag_param_buf);
+					}
 				}
 
 				if ($str_in[$k] == " " || $str_in[$k] == "]")
@@ -521,7 +542,16 @@ function LML(string | null $str_in, int $width = 80, bool $quote_mode = false, b
 	{
 		$tag_end_pos = $i - 1;
 		$tag_output_len = $tag_end_pos - $tag_start_pos + 1;
-		array_push($str_out, substr($str_in, $tag_start_pos, $tag_output_len));
+
+		// The unclosed tag is literal text, so it needs the same treatment as
+		// ordinary characters in the loop above
+		$tag_tail = substr($str_in, $tag_start_pos, $tag_output_len);
+		if ($html_trans)
+		{
+			$tag_tail = htmlspecialchars($tag_tail, ENT_QUOTES | ENT_HTML401, 'UTF-8');
+		}
+
+		array_push($str_out, $tag_tail);
 		$line_width += $tag_output_len;
 	}
 
