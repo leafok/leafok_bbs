@@ -16,7 +16,11 @@ function score_change(int $uid, int $score_change, string $reason, mysqli $db_co
 		return -1; // Query error
 	}
 
-	if ($row = mysqli_fetch_array($rs))
+	// Free the locking read before returning on any failure path below
+	$row = mysqli_fetch_array($rs);
+	mysqli_free_result($rs);
+
+	if ($row)
 	{
 		if ($score_change < 0 && $row["score"] + $score_change < 0)
 		{
@@ -42,8 +46,6 @@ function score_change(int $uid, int $score_change, string $reason, mysqli $db_co
 			return -3; // Insert error
 		}
 	}
-
-	mysqli_free_result($rs);
 
 	$sql = "INSERT INTO user_score_log(UID, score_change, reason, dt)
 			VALUES($uid, $score_change, '" .
