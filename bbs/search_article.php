@@ -126,7 +126,7 @@
 		($ex == 1 ? "excerption AND " : "") .
 		($ex == 2 ? "gen_ex AND " : "") .
 		($original ? "transship = 0 AND " : "") .
-		"(sub_dt BETWEEN '" . $begin_dt->setTimezone($BBS_runtime_tz)->format("Y-m-d") . "' AND '" . $end_dt->setTimezone($BBS_runtime_tz)->format("Y-m-d") . "') AND " .
+		"(sub_dt BETWEEN '" . $begin_dt->setTimezone($BBS_runtime_tz)->format("Y-m-d") . "' AND '" . $end_dt->setTimezone($BBS_runtime_tz)->format("Y-m-d 23:59:59") . "') AND " .
 		"title LIKE '%" . mysqli_real_escape_string($db_conn, $title) . "%'" .
 		($content == "" ? "" : " AND content LIKE '%" . mysqli_real_escape_string($db_conn, $content) . "%'");
 
@@ -202,7 +202,7 @@
 		($ex == 1 ? "excerption AND " : "") .
 		($ex == 2 ? "gen_ex AND " : "") .
 		($original ? "transship = 0 AND " : "") .
-		"(sub_dt BETWEEN '" . $begin_dt->setTimezone($BBS_runtime_tz)->format("Y-m-d") . "' AND '" . $end_dt->setTimezone($BBS_runtime_tz)->format("Y-m-d") . "') AND " .
+		"(sub_dt BETWEEN '" . $begin_dt->setTimezone($BBS_runtime_tz)->format("Y-m-d") . "' AND '" . $end_dt->setTimezone($BBS_runtime_tz)->format("Y-m-d 23:59:59") . "') AND " .
 		"bbs.title LIKE '%" . mysqli_real_escape_string($db_conn, $title) . "%'" .
 		($content == "" ? "" : " AND content LIKE '%" . mysqli_real_escape_string($db_conn, $content) . "%'") .
 		" ORDER BY sub_dt DESC" .
