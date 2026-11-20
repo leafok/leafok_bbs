@@ -247,7 +247,7 @@ window.addEventListener("load", () => {
 				</td>
 				<td>
 					<span style="color: #909090; ">
-						<?= $result_set["data"]["nickname"]; ?>
+						<?= htmlspecialchars($result_set["data"]["nickname"], ENT_HTML401, 'UTF-8'); ?>
 					</span>
 				</td>
 			</tr>

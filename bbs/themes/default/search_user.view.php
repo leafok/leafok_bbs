@@ -133,10 +133,10 @@ function ch_rpp()
 ?>
 					</td>
 					<td class="username">
-						<a class="s2" href="view_user.php?uid=<?= $user["uid"]; ?>" target=_blank><?= $user["username"]; ?></a>
+						<a class="s2" href="view_user.php?uid=<?= $user["uid"]; ?>" target=_blank><?= htmlspecialchars($user["username"], ENT_HTML401, 'UTF-8'); ?></a>
 					</td>
 					<td class="dark">
-						<?= $user["nickname"]; ?>
+						<?= htmlspecialchars($user["nickname"], ENT_HTML401, 'UTF-8'); ?>
 					</td>
 					<td class="level">
 						<?= user_level($user["exp"]); ?>
@@ -218,7 +218,7 @@ function ch_rpp()
 							<option value="0" <?php if ($result_set["data"]["type"] == 0) echo "selected"; ?> >按用户名</option>
 							<option value="1" <?php if ($result_set["data"]["type"] == 1) echo "selected"; ?> >按昵称</option>
 						</select>
-						<input type="text" id="search_text" name="search_text" size="15" value="<?= $result_set["data"]["search_text"];?>">
+						<input type="text" id="search_text" name="search_text" size="15" value="<?= htmlspecialchars($result_set["data"]["search_text"], ENT_QUOTES | ENT_HTML401, 'UTF-8'); ?>">
 						<input type="checkbox" id="online" name="online" value="1" <?= ($result_set["data"]["online"] ? "checked" : "");?>><font color=#909090>在线</font>
 						<input type="checkbox" id="friend" name="friend" value="1" <?= ($result_set["data"]["friend"] ? "checked" : "");?>><font color=#909090>好友</font>
 						<input type=image src="images/search.gif" alt="查找用户" border="0" name="image"></a>

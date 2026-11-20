@@ -247,7 +247,7 @@ else if ($quote)
 		{
 			$filename = $attachment["filename"];
 ?>
-			<span id="attachment_<?= $aid; ?>"><img src="images/closed.gif"><a class="s2" href="dl_file.php?aid=<?= $aid; ?>" target="_target"><?= $filename; ?></a> (<?= $attachment["size"]; ?>字节)
+			<span id="attachment_<?= $aid; ?>"><img src="images/closed.gif"><a class="s2" href="dl_file.php?aid=<?= $aid; ?>" target="_target"><?= htmlspecialchars($filename, ENT_HTML401, 'UTF-8'); ?></a> (<?= $attachment["size"]; ?>字节)
 <?php
 			if ($attachment["check"] == 0)
 			{

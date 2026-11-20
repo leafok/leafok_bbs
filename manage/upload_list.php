@@ -92,7 +92,7 @@
 						</a>
 					</td>
 					<td align="middle">
-						<a href="/bbs/dl_file.php?aid=<?= $upload_file["aid"]; ?>&force=1" target=_blank><?= $upload_file["filename"]; ?></a> (<?= $upload_file["size"]; ?>字节)
+						<a href="/bbs/dl_file.php?aid=<?= $upload_file["aid"]; ?>&force=1" target=_blank><?= htmlspecialchars($upload_file["filename"], ENT_HTML401, 'UTF-8'); ?></a> (<?= $upload_file["size"]; ?>字节)
 					</td>
 					<td align="middle">
 						<a href="upload_process.php?enable=1&aid=<?= $upload_file["aid"]; ?>">通过</a>&nbsp;&nbsp;&nbsp;&nbsp;

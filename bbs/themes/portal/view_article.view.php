@@ -75,9 +75,10 @@
 		}
 
 		$filename = $attachment["filename"];
+		$filename_h = htmlspecialchars($filename, ENT_HTML401, 'UTF-8');
 
 		$atta_list .= <<<HTML
-			<img src="../www/images/dl.gif"><a class="s2" href="../bbs/dl_file.php?aid={$attachment['aid']}" target="_target">{$filename}</a> ({$attachment["size"]}字节)
+			<img src="../www/images/dl.gif"><a class="s2" href="../bbs/dl_file.php?aid={$attachment['aid']}" target="_target">{$filename_h}</a> ({$attachment["size"]}字节)
 		HTML;
 
 		$ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));

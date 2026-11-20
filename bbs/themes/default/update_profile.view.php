@@ -116,8 +116,9 @@ window.addEventListener("load", () => {
 <?php
 	foreach ($result_set["data"]["nicknames"] as $nickname)
 	{
+		$nickname_h = htmlspecialchars($nickname, ENT_QUOTES | ENT_HTML401, 'UTF-8');
 		echo <<<HTML
-						<option value="{$nickname}">{$nickname}</option>
+						<option value="{$nickname_h}">{$nickname_h}</option>
 		HTML;
 	}
 ?>

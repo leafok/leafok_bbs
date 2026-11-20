@@ -511,9 +511,10 @@
 		foreach ($article["attachments"] as $attachment)
 		{
 			$filename = $attachment["filename"];
+			$filename_h = htmlspecialchars($filename, ENT_HTML401, 'UTF-8');
 
 			$atta_list .= <<<HTML
-				<span id="attachment_{$attachment['aid']}"><img src="images/closed.gif"><a class="s2" href="dl_file.php?aid={$attachment['aid']}" target="_target">{$filename}</a> ({$attachment["size"]}字节)
+				<span id="attachment_{$attachment['aid']}"><img src="images/closed.gif"><a class="s2" href="dl_file.php?aid={$attachment['aid']}" target="_target">{$filename_h}</a> ({$attachment["size"]}字节)
 			HTML;
 
 			if (!$attachment["check"])

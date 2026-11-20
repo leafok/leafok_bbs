@@ -131,6 +131,7 @@
 			}
 
 			$filename = $attachment["filename"];
+			$filename_h = htmlspecialchars($filename, ENT_HTML401, 'UTF-8');
 			$ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
 
 			if (!copy("../bbs/upload/" . $attachment["aid"], "../gen_ex/attachment/" . $attachment["aid"] . ".$ext"))
@@ -139,7 +140,7 @@
 			}
 
 			$atta_list .= <<<HTML
-				<a class="s2" href="{$section_path}../attachment/{$attachment['aid']}.$ext" target="_blank">{$filename}</a> ({$attachment["size"]}字节)
+				<a class="s2" href="{$section_path}../attachment/{$attachment['aid']}.$ext" target="_blank">{$filename_h}</a> ({$attachment["size"]}字节)
 			HTML;
 
 			switch ($ext)
