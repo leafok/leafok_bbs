@@ -15,7 +15,7 @@
 		exit();
 	}
 
-	$sql = "DELETE FROM user_online WHERE SID='" . session_id() . "'";
+	$sql = "DELETE FROM user_online WHERE SID='" . session_sid() . "'";
 	$rs = mysqli_query($db_conn, $sql);
 	if ($rs == false)
 	{

@@ -8,6 +8,15 @@ if (!defined("_BBS_SESSION_INIT_"))
 {
 	define("_BBS_SESSION_INIT_", 1);
 
+	// The session id is concatenated into quoted SQL strings below. PHP only accepts
+	// ids built from the characters allowed by session.sid_bits_per_character, so an
+	// id cannot carry a quote today - but that safety comes from php.ini, not from
+	// this code, so restrict it here instead of inheriting the assumption.
+	function session_sid() : string
+	{
+		return preg_replace("/[^0-9a-zA-Z,-]/", "", session_id());
+	}
+
 	function force_login($msg = 1)
 	{
 		if (!isset($_SESSION["BBS_uid"]) || $_SESSION["BBS_uid"] == 0)
@@ -22,7 +31,7 @@ if (!defined("_BBS_SESSION_INIT_"))
 	function keep_alive($db_conn)
 	{
 		$sql = "SELECT current_action FROM user_online WHERE SID='" .
-				session_id() . "'";
+				session_sid() . "'";
 		$rs = mysqli_query($db_conn, $sql);
 		if ($rs == false)
 		{
@@ -35,7 +44,7 @@ if (!defined("_BBS_SESSION_INIT_"))
 			{
 				case "exit":
 					$sql = "DELETE FROM user_online WHERE SID='" .
-							session_id() . "'";
+							session_sid() . "'";
 					mysqli_query($db_conn, $sql);
 
 					session_unset();
@@ -59,7 +68,7 @@ if (!defined("_BBS_SESSION_INIT_"))
 		$sql = "UPDATE user_online SET UID = " . $_SESSION["BBS_uid"] .
 				", ip = '" . client_addr() . "', current_action = 'WWW', login_tm = '".
 				date("Y-m-d H:i:s", $_SESSION["BBS_login_tm"]) . "', last_tm = NOW() " .
-				"WHERE SID = '" . session_id() . "'";
+				"WHERE SID = '" . session_sid() . "'";
 
 		$rs = mysqli_query($db_conn, $sql);
 		if ($rs == false)
@@ -112,7 +121,7 @@ if (!defined("_BBS_SESSION_INIT_"))
 		// Recover session from user_online table
 		$sql = "SELECT user_online.UID, user_list.username, login_tm, last_tm
 				FROM user_online INNER JOIN user_list ON user_online.UID = user_list.UID
-				WHERE SID = '" . session_id() . "'";
+				WHERE SID = '" . session_sid() . "'";
 		$rs = mysqli_query($db_conn, $sql);
 		if ($rs == false)
 		{
@@ -143,7 +152,7 @@ if (!defined("_BBS_SESSION_INIT_"))
 				exit();
 			}
 
-			$sql = "DELETE FROM user_online WHERE SID = '" . session_id() . "'";
+			$sql = "DELETE FROM user_online WHERE SID = '" . session_sid() . "'";
 			$rs = mysqli_query($db_conn, $sql);
 			if ($rs == false)
 			{
@@ -152,7 +161,7 @@ if (!defined("_BBS_SESSION_INIT_"))
 			}
 
 			$sql = "INSERT INTO user_online(SID, UID, ip, login_tm, last_tm) VALUES('" .
-					session_id() . "', " . $_SESSION["BBS_uid"] . ", '" .
+					session_sid() . "', " . $_SESSION["BBS_uid"] . ", '" .
 					client_addr() . "', NOW(), NOW())";
 			$rs = mysqli_query($db_conn, $sql);
 			if ($rs == false)
