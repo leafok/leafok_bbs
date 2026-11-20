@@ -32,6 +32,11 @@
 
 	$css_file = get_theme_file('css/default');
 
+	// Search terms come back from the request and are echoed into attribute values
+	$nickname_h = htmlspecialchars($result_set['data']['nickname'], ENT_QUOTES | ENT_HTML401, 'UTF-8');
+	$title_h = htmlspecialchars($result_set['data']['title'], ENT_QUOTES | ENT_HTML401, 'UTF-8');
+	$content_h = htmlspecialchars($result_set['data']['content'], ENT_QUOTES | ENT_HTML401, 'UTF-8');
+
 	echo <<<HTML
 	<html>
 	<head>
@@ -226,9 +231,9 @@
 			<form action="" method="GET" id="search_form" name="search_form">
 				<a name="cp"></a>
 				<input type="hidden" id="uid" name="uid" value="{$result_set['data']['uid']}">
-				<input type="hidden" id="nickname" name="nickname" value="{$result_set['data']['nickname']}">
-				<input type="hidden" id="title" name="title" value="{$result_set['data']['title']}">
-				<input type="hidden" id="content" name="content" value="{$result_set['data']['content']}">
+				<input type="hidden" id="nickname" name="nickname" value="{$nickname_h}">
+				<input type="hidden" id="title" name="title" value="{$title_h}">
+				<input type="hidden" id="content" name="content" value="{$content_h}">
 				<input type="hidden" id="sid" name="sid" value="{$result_set['data']['sid']}">
 				<input type="hidden" id="begin_dt" name="begin_dt" value="{$result_set['data']['begin_dt']->format('Y-m-d')}">
 				<input type="hidden" id="end_dt" name="end_dt" value="{$result_set['data']['end_dt']->format('Y-m-d')}">
