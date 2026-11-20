@@ -157,7 +157,7 @@ const instance = axios.create({
 ?>
 			<tr bgcolor="#f0F3Fa" height="30" id="attachment_<?= $row["AID"]; ?>">
 				<td align="middle">
-					<a class="s2" href="dl_file.php?aid=<?= $row["AID"]; ?>"><?= $row["filename"]; ?></a> (<?= $row["size"]; ?>字节)
+					<a class="s2" href="dl_file.php?aid=<?= $row["AID"]; ?>"><?= htmlspecialchars($row["filename"], ENT_HTML401, 'UTF-8'); ?></a> (<?= $row["size"]; ?>字节)
 				</td>
 				<td align="middle">
 					<?= ($row["check"]?($row["deny"]?"<font color=red>未通过</font>":"<font color=green>已通过</font>"):"<font color=blue>未审核</font>"); ?>
