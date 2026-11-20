@@ -1,4 +1,11 @@
 <?php
+	// Batch job: must never be reachable over HTTP
+	if (PHP_SAPI != "cli")
+	{
+		http_response_code(403);
+		exit();
+	}
+
 	require_once "../lib/db_open.inc.php";
 	require_once "../lib/common.inc.php";
 

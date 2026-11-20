@@ -3,7 +3,7 @@
 
 	force_login();
 
-	if (!$_SESSION["BBS_priv"]->checklevel(P_ADMIN_M | P_ADMIN_S) && !isset($_SERVER["argc"]))
+	if (!$_SESSION["BBS_priv"]->checklevel(P_ADMIN_M | P_ADMIN_S) && PHP_SAPI != "cli")
 	{
 		echo ("没有权限！");
 		exit();

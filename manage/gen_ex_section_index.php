@@ -1,6 +1,7 @@
 <?php
-	if (!isset($_SERVER["argc"]) || $_SERVER["argc"] != 2)
+	if (PHP_SAPI != "cli" || $_SERVER["argc"] != 2)
 	{
+		http_response_code(403);
 		echo "Invalid usage";
 		exit();
 	}

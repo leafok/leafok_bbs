@@ -1,5 +1,5 @@
 <?php
-	if (isset($_SERVER["argc"]))
+	if (PHP_SAPI == "cli")
 	{
 		if ($_SERVER["argc"] != 2)
 		{

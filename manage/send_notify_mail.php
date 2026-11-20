@@ -1,4 +1,11 @@
 <?php
+	// Batch job: must never be reachable over HTTP
+	if (PHP_SAPI != "cli")
+	{
+		http_response_code(403);
+		exit();
+	}
+
 	if (isset($_SERVER["argv"]))
 	{
 		chdir(dirname($_SERVER["argv"][0]));
