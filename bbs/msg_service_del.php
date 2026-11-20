@@ -5,7 +5,7 @@
 	$data = json_decode(file_get_contents("php://input"), true);
 
 	$sent = (isset($data["sent"]) && $data["sent"] == "1");
-	$msg_id = (isset($data["delete_msg_id"]) ? $data["delete_msg_id"] : array());
+	$msg_id = (isset($data["delete_msg_id"]) && is_array($data["delete_msg_id"]) ? $data["delete_msg_id"] : array());
 
 	$result_set = array(
 		"return" => array(
@@ -29,7 +29,7 @@
 	$msg_id_list = array(-1);
 	foreach($msg_id as $mid)
 	{
-		array_push($msg_id_list, $mid);
+		array_push($msg_id_list, intval($mid));
 	}
 
 	if (count($msg_id_list) == 1)
